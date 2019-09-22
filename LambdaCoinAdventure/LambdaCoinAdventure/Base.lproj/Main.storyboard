@@ -24,35 +24,47 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9RC-V2-kwh">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.4428297792338452" green="0.45945582057359663" blue="0.5971579218106996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="☝️"/>
+                                        <connections>
+                                            <action selector="upButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5kO-f7-rsS"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zyr-lZ-fve">
                                         <rect key="frame" x="0.0" y="90" width="30" height="30"/>
-                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.4428297792338452" green="0.45945582057359663" blue="0.5971579218106996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="👇"/>
+                                        <connections>
+                                            <action selector="downButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zgk-02-UQm"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="OGF-Sd-SP1">
-                                <rect key="frame" x="1221" y="906" width="120" height="30"/>
+                                <rect key="frame" x="1221" y="905" width="120" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6LG-3t-H41">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.4428297792338452" green="0.45945582057359663" blue="0.5971579218106996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="👈"/>
+                                        <connections>
+                                            <action selector="leftButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nqe-2J-ILC"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ise-CY-Ae3">
                                         <rect key="frame" x="90" y="0.0" width="30" height="30"/>
-                                        <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.4428297792338452" green="0.45945582057359663" blue="0.5971579218106996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="👉"/>
+                                        <connections>
+                                            <action selector="rightButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yX0-Fm-fSW"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OGF-Sd-SP1" secondAttribute="bottom" constant="68" id="392-Gc-WzH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OGF-Sd-SP1" secondAttribute="bottom" constant="69" id="392-Gc-WzH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LRz-nK-BPe" secondAttribute="bottom" constant="24" id="euK-oz-cc3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LRz-nK-BPe" secondAttribute="trailing" constant="70" id="jTQ-rr-UaL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OGF-Sd-SP1" secondAttribute="trailing" constant="25" id="rNv-6P-xQB"/>
@@ -64,7 +76,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="downButton" destination="Zyr-lZ-fve" id="IWd-xH-cAd"/>
+                        <outlet property="leftButton" destination="6LG-3t-H41" id="gfe-Dr-xSD"/>
                         <outlet property="mapView" destination="oC4-ke-fkY" id="Q2M-KC-Gjo"/>
+                        <outlet property="rightButton" destination="ise-CY-Ae3" id="yuV-KX-pWZ"/>
+                        <outlet property="upButton" destination="9RC-V2-kwh" id="jI0-HJ-oUS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
