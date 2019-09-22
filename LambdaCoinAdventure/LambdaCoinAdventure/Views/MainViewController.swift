@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import SpriteKit
 
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var mapView: MapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = #colorLiteral(red: 0.07691047341, green: 0.0657993257, blue: 0.1335668266, alpha: 1)
 
         // Do any additional setup after loading the view.
     }
+    
+    
     
 
     /*
