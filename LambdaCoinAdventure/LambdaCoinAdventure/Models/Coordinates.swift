@@ -11,4 +11,5 @@ import Foundation
 struct Coordinates: Equatable, Hashable {
     let x: Int
     let y: Int
+    let exits: [String]
 }
