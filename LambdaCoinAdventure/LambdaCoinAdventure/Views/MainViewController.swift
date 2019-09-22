@@ -17,8 +17,16 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = #colorLiteral(red: 0.07691047341, green: 0.0657993257, blue: 0.1335668266, alpha: 1)
-
+        
         // Do any additional setup after loading the view.
+        setupMap()
+    }
+    
+    func setupMap(){
+        // Round Map
+        mapView.layer.opacity = 0.80
+        mapView.layer.cornerRadius = 16.0
+        mapView.clipsToBounds = true
     }
     
     
