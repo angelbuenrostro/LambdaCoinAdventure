@@ -12,4 +12,10 @@ struct Coordinates: Equatable, Hashable {
     let x: Int
     let y: Int
     let exits: [String]
+    let shop: Bool?
+    let nameChanger: Bool?
+    let shrine: Bool?
+    let transmogrifier: Bool?
+    let mine: Bool?
+    let elevated: Bool?
 }

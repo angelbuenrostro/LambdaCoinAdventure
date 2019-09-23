@@ -23,8 +23,8 @@ class MainViewController: UIViewController {
                            errors: [],
                            messages: ["testMessage"]) {
         didSet {
-            updateUI()
-            self.view.setNeedsDisplay()
+//            updateUI()
+//            self.view.setNeedsDisplay()
         }
     }
     
@@ -43,7 +43,9 @@ class MainViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
     
     @IBOutlet weak var mapView: MapView!
+    
     // MARK: - Actions
+
     @IBAction func upButtonPressed(_ sender: UIButton) {    movePlayer("n") }
     @IBAction func rightButtonPressed(_ sender: UIButton) { movePlayer("e") }
     @IBAction func leftButtonPressed(_ sender: UIButton) {  movePlayer("w") }
@@ -51,6 +53,11 @@ class MainViewController: UIViewController {
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
         print("Start")
+        
+        // Clear MapView Coordinates
+        
+        
+        // Call Lambda API endpoint
         apiController.initialize { (result) in
             if let room = try? result.get() {
                 
@@ -60,6 +67,10 @@ class MainViewController: UIViewController {
                     if room.errors.isEmpty {
                         // Sets returned API room as currentRoom triggering a didSet UI update
                         self.currentRoom = room
+                        self.updateUI()
+                        self.view.setNeedsDisplay()
+                        // TODO: - Make Coordinates Object from currentRoom
+                        // and set that object to the MapView property
                     } else {
                         print("Room: \(room)")
                         print("Room Error: \(room.errors)")
@@ -70,10 +81,10 @@ class MainViewController: UIViewController {
     }
     
     // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         setupUI()
     }
     
@@ -134,6 +145,11 @@ class MainViewController: UIViewController {
                     if room.errors.isEmpty {
                         // Sets returned API room as currentRoom triggering a didSet UI update
                         self.currentRoom = room
+                        self.updateUI()
+                        self.view.setNeedsDisplay()
+                        print("Curent Room: \(self.currentRoom)")
+                        // TODO: - Make Coordinates Object from currentRoom
+                        // and set that object to the MapView property
                     } else {
                         print("Room: \(room)")
                         print("Room Error: \(room.errors)")
@@ -143,15 +159,8 @@ class MainViewController: UIViewController {
         }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func traverseMaze() {
+        
     }
-    */
 
 }

@@ -12,7 +12,8 @@ class MapView: UIView {
     
     var currentCoordinate: Coordinates = Coordinates(x: 60, y: 60, exits: ["n","s","w","e"]) {
         didSet{
-            self.setNeedsLayout()
+            // TODO: Call an update function
+            self.setNeedsDisplay()
         }
     }
     
@@ -24,7 +25,7 @@ class MapView: UIView {
                                      Coordinates(x: 45,y: 75, exits: ["s", "w", "e"]),
                                      Coordinates(x: 60,y: 60, exits: ["n","s","w","e"])] {
         didSet {
-            self.setNeedsLayout()
+            self.setNeedsDisplay()
         }
     }
     let pointSize = CGSize(width: 12, height: 12)

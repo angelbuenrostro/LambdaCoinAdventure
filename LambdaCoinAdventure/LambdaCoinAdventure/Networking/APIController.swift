@@ -69,7 +69,7 @@ class APIController {
         request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField:"Content-Type")
         
-        //JSON Body
+        // JSON Body
         let bodyObject: [String:String] = [
             "direction": direction
         ]
