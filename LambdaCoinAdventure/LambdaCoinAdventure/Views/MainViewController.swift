@@ -103,7 +103,7 @@ class MainViewController: UIViewController {
         // Background Color
         self.view.backgroundColor = #colorLiteral(red: 0.1483936906, green: 0.1771853268, blue: 0.2190909386, alpha: 1)
         self.mapView.backgroundColor = #colorLiteral(red: 0.1394269764, green: 0.1392630935, blue: 0.1629098058, alpha: 1)
-        
+        self.predictionTextField.backgroundColor = #colorLiteral(red: 0.1394269764, green: 0.1392630935, blue: 0.1629098058, alpha: 1)
         // Round Map
         mapView.layer.opacity = 0.80
         mapView.layer.cornerRadius = 16.0
@@ -127,6 +127,8 @@ class MainViewController: UIViewController {
         dashButton.clipsToBounds = true
         flyButton.layer.cornerRadius = buttonRadius
         flyButton.clipsToBounds = true
+        predictionTextField.layer.cornerRadius = buttonRadius
+        predictionTextField.clipsToBounds = true
         
         
         // Border
@@ -169,26 +171,16 @@ class MainViewController: UIViewController {
         }
         
         // If isDashing = true , Make appropriate API Move Call
-        
-        apiController.move(direction: direction, roomPrediction: prediction) { (result) in
-            if let room = try? result.get() {
-                DispatchQueue.main.async {
-                    if room.errors.isEmpty {
-                        // Sets returned API room as currentRoom triggering a didSet UI update
-                        self.currentRoom = room
-                        self.updateUI()
-                        self.view.setNeedsDisplay()
-                        self.mapView.apiController = self.apiController
-                        self.mapView.setNeedsDisplay()
-                        // Run Cooldown Timer
-                        self.runTimer()
-                        self.validateMoveAbility()
-                        
-                        print("Curent Room: \(self.currentRoom)")
-                    } else {
-                        print("Room: \(room)")
-                        print("Room Error: \(room.errors)")
-                    }
+        if isDashing {
+            apiController.dash(direction: direction, roomsPrediction: prediction) { (result) in
+                if let room = try? result.get() {
+                    self.handleAPIResult(room)
+                }
+            }
+        } else {
+            apiController.move(direction: direction, roomPrediction: prediction) { (result) in
+                if let room = try? result.get() {
+                    self.handleAPIResult(room)
                 }
             }
         }
@@ -211,6 +203,7 @@ class MainViewController: UIViewController {
                         // TODO: - Make Coordinates Object from currentRoom
                         // and set that object to the MapView property
                     } else {
+                        
                         print("Room: \(room)")
                         print("Room Error: \(room.errors)")
                     }
@@ -250,6 +243,28 @@ class MainViewController: UIViewController {
             validateMoveAbility()
         }
         seconds -= 1
+    }
+    
+    private func handleAPIResult(_ room: Room) {
+        DispatchQueue.main.async {
+            
+            self.currentRoom = room
+            self.updateUI()
+            self.view.setNeedsDisplay()
+            self.mapView.apiController = self.apiController
+            self.mapView.setNeedsDisplay()
+            // Run Cooldown Timer
+            self.runTimer()
+            self.validateMoveAbility()
+            
+            if room.errors.isEmpty {
+                print("Curent Room: \(self.currentRoom)")
+            } else {
+                print("Room: \(room)")
+                print("Room Error: \(room.errors)")
+            }
+        }
+        
     }
 
 }

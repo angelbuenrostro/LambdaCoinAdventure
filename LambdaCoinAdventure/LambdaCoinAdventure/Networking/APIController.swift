@@ -67,6 +67,52 @@ class APIController {
         }.resume()
     }
     
+    func dash(direction: String, roomsPrediction: String, completion: @escaping (Result<Room, NetworkError>) -> Void ) {
+        print("Dashing!")
+        // Get Num of Rooms Dashing from prediction string parsing
+        let numRooms = (roomsPrediction.filter { $0 == "," }.count + 1)
+        
+        // Make Request
+        var request = URLRequest(url: constants.dashURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let bodyObject: [String:String] = [
+            "direction": direction,
+            "num_rooms": String(numRooms),
+            "next_room_ids": roomsPrediction
+        ]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
+        
+        // Decode JSON while handling errors
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(.failure(.badAuth))
+                return
+            }
+            
+            if let _ = error {
+                completion(.failure(.otherError))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.badData))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let room = try decoder.decode(Room.self, from: data)
+                self.parseCoordinates(room)
+                completion(.success(room))
+            } catch {
+                completion(.failure(.noDecode))
+            }
+        }.resume()
+    }
+    
     
     func move(direction: String, roomPrediction: String?, completion: @escaping (Result<Room, NetworkError>) -> Void ) {
         
