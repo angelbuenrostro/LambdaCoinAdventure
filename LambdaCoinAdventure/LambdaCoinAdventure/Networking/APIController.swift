@@ -68,9 +68,9 @@ class APIController {
     }
     
     func dash(direction: String, roomsPrediction: String, completion: @escaping (Result<Room, NetworkError>) -> Void ) {
-        print("Dashing!")
         // Get Num of Rooms Dashing from prediction string parsing
         let numRooms = (roomsPrediction.filter { $0 == "," }.count + 1)
+        print("Dashing! \(numRooms) body: \(roomsPrediction)")
         
         // Make Request
         var request = URLRequest(url: constants.dashURL)

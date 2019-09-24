@@ -26,6 +26,8 @@ class MainViewController: UIViewController {
     var seconds = 0.0
     var isTimerRunning = false
     
+    let errorLabel: UILabel = UILabel()
+    
     var isDashing = false
     var isFlying = false
     // MARK: - Outlets
@@ -53,9 +55,12 @@ class MainViewController: UIViewController {
         if isFlying == false {
             isDashing = !isDashing
             if isDashing {
-                dashButton.backgroundColor = #colorLiteral(red: 0.3331030011, green: 0.3331645429, blue: 0.3330943882, alpha: 1)
+                dashButton.backgroundColor = #colorLiteral(red: 0.1394269764, green: 0.1392630935, blue: 0.1629098058, alpha: 1)
+                dashButton.layer.borderWidth = 2.0
+                dashButton.layer.borderColor = #colorLiteral(red: 0.131129995, green: 0.3781099916, blue: 0.6658899784, alpha: 1)
             } else {
                 dashButton.backgroundColor = UIColor.clear
+                dashButton.layer.borderWidth = 0.0
             }
         }
     }
@@ -64,9 +69,12 @@ class MainViewController: UIViewController {
         if isDashing == false {
             isFlying = !isFlying
             if isFlying {
-                flyButton.backgroundColor = #colorLiteral(red: 0.3331030011, green: 0.3331645429, blue: 0.3330943882, alpha: 1)
+                flyButton.backgroundColor = #colorLiteral(red: 0.1394269764, green: 0.1392630935, blue: 0.1629098058, alpha: 1)
+                flyButton.layer.borderWidth = 2.0
+                flyButton.layer.borderColor = #colorLiteral(red: 0.131129995, green: 0.3781099916, blue: 0.6658899784, alpha: 1)
             } else {
                 flyButton.backgroundColor = UIColor.clear
+                flyButton.layer.borderWidth = 0.0
             }
         }
     }
@@ -132,11 +140,25 @@ class MainViewController: UIViewController {
         
         
         // Border
-        startButton.layer.borderColor = UIColor.darkGray.cgColor
+        startButton.layer.borderColor = #colorLiteral(red: 0.131129995, green: 0.3781099916, blue: 0.6658899784, alpha: 1)
         startButton.layer.borderWidth = CGFloat(2.0)
         
         // Ready Cooldown
         self.timerLabel.text = ""
+        
+        // Make Error Label
+        errorLabel.frame = CGRect(x: mapView.frame.midX - 300, y: self.view.frame.maxY - 69, width: 600, height: 50)
+        errorLabel.layer.opacity = 1
+        errorLabel.textAlignment = .center
+        errorLabel.backgroundColor = .clear
+        errorLabel.layer.cornerRadius = 6.0
+        errorLabel.clipsToBounds = true
+        
+        self.view.addSubview(errorLabel)
+        errorLabel.textColor = #colorLiteral(red: 0.9486700892, green: 0.9493889213, blue: 0.9487814307, alpha: 1)
+        errorLabel.text = "🚫"
+        errorLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        errorLabel.isHidden = true
     }
     
     func updateUI() {
@@ -192,22 +214,7 @@ class MainViewController: UIViewController {
                 
                 print("Room: \(room)")
                 print(room.errors.isEmpty)
-                DispatchQueue.main.async {
-                    if room.errors.isEmpty {
-                        // Sets returned API room as currentRoom triggering a didSet UI update
-                        self.currentRoom = room
-                        self.updateUI()
-                        self.view.setNeedsDisplay()
-                        self.mapView.apiController = self.apiController
-                        self.mapView.setNeedsDisplay()
-                        // TODO: - Make Coordinates Object from currentRoom
-                        // and set that object to the MapView property
-                    } else {
-                        
-                        print("Room: \(room)")
-                        print("Room Error: \(room.errors)")
-                    }
-                }
+                self.handleAPIResult(room)
             }
         }
     }
@@ -239,6 +246,7 @@ class MainViewController: UIViewController {
             timerLabel.text = ""
             timer.invalidate()
             self.isTimerRunning = false
+            self.errorLabel.isHidden = true
             timerLabel.textColor = UIColor.darkGray
             validateMoveAbility()
         }
@@ -260,6 +268,8 @@ class MainViewController: UIViewController {
             if room.errors.isEmpty {
                 print("Curent Room: \(self.currentRoom)")
             } else {
+                self.errorLabel.isHidden = false
+                self.errorLabel.text = "🚫🙅‍♂️💩 " + room.errors[0]
                 print("Room: \(room)")
                 print("Room Error: \(room.errors)")
             }

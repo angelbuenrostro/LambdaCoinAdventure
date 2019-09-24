@@ -148,11 +148,7 @@ class MapView: UIView {
         
         // Create dictionary
         let frameKey = getFrameKey(rect: biggerRect)
-//        let frameXMin = String(Int(biggerRect.minX))
-//        let frameYMin = String(Int(biggerRect.minY))
-//        let frameKey = frameXMin + frameYMin
         guard let apiController = apiController else { fatalError() }
-        let roomButton = [frameKey: apiController.currentCoordinate!.id]
         if idDict.keys.contains(frameKey) {
             return
         } else {
