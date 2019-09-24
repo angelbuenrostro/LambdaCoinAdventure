@@ -9,6 +9,7 @@
 import Foundation
 
 struct Coordinates: Equatable, Hashable {
+    let id: Int
     let x: Int
     let y: Int
     let exits: [String]

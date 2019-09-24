@@ -38,6 +38,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
+    @IBOutlet weak var predictionTextField: UITextField!
     
     @IBOutlet weak var startButton: UIButton!
     
@@ -63,7 +64,10 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        
+        
     }
+    
     
     
     // MARK: - Private Functions
@@ -72,7 +76,7 @@ class MainViewController: UIViewController {
         // Initial UI Setup
         updateUI()
         // Background Color
-        self.view.backgroundColor = #colorLiteral(red: 0.8590026498, green: 0.9080110788, blue: 0.9488238692, alpha: 1)
+        self.view.backgroundColor = #colorLiteral(red: 0.1483936906, green: 0.1771853268, blue: 0.2190909386, alpha: 1)
         self.mapView.backgroundColor = #colorLiteral(red: 0.1394269764, green: 0.1392630935, blue: 0.1629098058, alpha: 1)
         
         // Round Map
@@ -92,6 +96,8 @@ class MainViewController: UIViewController {
         downButton.clipsToBounds = true
         startButton.layer.cornerRadius = 10.0
         startButton.clipsToBounds = true
+        timerLabel.layer.cornerRadius = 20.0
+        timerLabel.clipsToBounds = true
         
         // Border
         startButton.layer.borderColor = UIColor.darkGray.cgColor
@@ -102,6 +108,8 @@ class MainViewController: UIViewController {
     }
     
     func updateUI() {
+        
+        self.predictionTextField.inputView = UIView()
         
         // Formats array of string messages from Room Object into single string
         var msgString = ""
@@ -125,7 +133,12 @@ class MainViewController: UIViewController {
     
     private func movePlayer(_ direction: String) {
         print(direction)
-        apiController.move(direction: direction) { (result) in
+        var prediction: String = ""
+        if predictionTextField.text != nil {
+            prediction = predictionTextField.text!
+        }
+        
+        apiController.move(direction: direction, roomPrediction: prediction) { (result) in
             if let room = try? result.get() {
                 DispatchQueue.main.async {
                     if room.errors.isEmpty {
@@ -196,7 +209,7 @@ class MainViewController: UIViewController {
     
     @objc func updateTimer() {
         timerLabel.text = "\(Int(seconds))" // May cause issues if automating traversal as casting to int will round the time interval
-        timerLabel.textColor = UIColor.systemRed
+        timerLabel.textColor = UIColor.black
         if seconds <= 0.0 {
             timerLabel.text = ""
             timer.invalidate()

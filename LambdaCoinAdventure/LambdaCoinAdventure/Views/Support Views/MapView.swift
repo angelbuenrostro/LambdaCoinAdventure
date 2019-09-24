@@ -10,10 +10,13 @@ import UIKit
 
 class MapView: UIView {
     
-    
     var apiController : APIController? = nil
     let pointSize = CGSize(width: 8, height: 8)
-
+    
+    var infoLabelMade = false
+    var infoLabelRef: UILabel?
+    
+    var idDict: [String:Int] = [:] // Keys -> String MinXMinY frame of UIButtons  : Values -> RoomID #
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -38,6 +41,8 @@ class MapView: UIView {
             let pointRect = CGRect(origin: CGPoint(x: point.x - (pointSize.width/2),
                                                    y: point.y + (pointSize.height/2)),
                                                                     size: pointSize)
+            
+            addButton(on: pointRect)
             
             // Draws Exit Markers to relevant cardinal direction
             if !coordinate.exits.isEmpty {
@@ -81,6 +86,7 @@ class MapView: UIView {
             context.setStrokeColor(roomColor)
 
             // Checks to see player's current position within the map
+            // Also stores currentCoordinate ID into a dictionary set so a button press on coordinate position can return roomID when needed
             guard let currentCoordinate = apiController.currentCoordinate else { return }
             if coordinate == currentCoordinate {
                 //UIColor(red: 0.40, green: 0.22, blue: 0.94, alpha: 1.00)
@@ -133,5 +139,78 @@ class MapView: UIView {
         }
         context.addLine(to: endPoint)
         context.drawPath(using: .stroke)
+    }
+    
+    func addButton(on pointRect: CGRect){
+        
+        let biggerRect = CGRect(x: pointRect.minX - 3, y: pointRect.minY - 3, width: pointRect.width + 6, height: pointRect.height + 6)
+        // Check Dictionary set of buttons, if does not exist at MinXMinY Dictionary then add new button, else do nothing.
+        
+        // Create dictionary
+        let frameKey = getFrameKey(rect: biggerRect)
+//        let frameXMin = String(Int(biggerRect.minX))
+//        let frameYMin = String(Int(biggerRect.minY))
+//        let frameKey = frameXMin + frameYMin
+        guard let apiController = apiController else { fatalError() }
+        let roomButton = [frameKey: apiController.currentCoordinate!.id]
+        if idDict.keys.contains(frameKey) {
+            return
+        } else {
+            idDict[frameKey] = apiController.currentCoordinate!.id
+            let infoButton = UIButton(frame: biggerRect)
+            infoButton.backgroundColor = UIColor.clear
+            infoButton.addTarget(self, action: #selector(infoButtonPressed(sender:)), for: .touchUpInside)
+            self.addSubview(infoButton)
+        }
+    }
+    
+    @objc func infoButtonPressed(sender: UIButton!) {
+        print("Pressed Info Button")
+        let frameKey = getFrameKey(rect: sender.frame)
+        if sender.backgroundColor != #colorLiteral(red: 0.5765730143, green: 0.8659184575, blue: 0.9998990893, alpha: 1) {
+            
+            guard let nextID = idDict[frameKey] else { fatalError() }
+            
+            print(nextID)
+            
+            // Draw UILabel with RoomID info on screen
+            if infoLabelMade == false {
+                let infoLabel = UILabel()
+                infoLabel.frame = CGRect(x: self.frame.maxX - 200, y: 840, width: 200, height: 50)
+                infoLabel.layer.opacity = 0.80
+                infoLabel.textAlignment = .center
+                infoLabel.backgroundColor = #colorLiteral(red: 0.9691255689, green: 0.9698591828, blue: 0.9692392945, alpha: 1)
+                infoLabel.layer.cornerRadius = 6.0
+                infoLabel.clipsToBounds = true
+                
+                self.insertSubview(infoLabel, at: 0)
+                infoLabelMade = true
+                infoLabel.text = String(nextID)
+                infoLabel.font = UIFont.boldSystemFont(ofSize: 18)
+                infoLabelRef = infoLabel
+            } else {
+                guard var idText = infoLabelRef!.text else { fatalError() }
+                print(idText.count)
+                if idText.count > 12 {
+                    idText = String(idText.dropFirst(3))
+                    print(idText)
+                }
+                
+                infoLabelRef!.text = idText + " " + (String(nextID))
+                self.subviews[0].isHidden = false
+                sender.backgroundColor = #colorLiteral(red: 0.5765730143, green: 0.8659184575, blue: 0.9998990893, alpha: 1)
+            }
+        } else {
+            self.subviews[0].isHidden = true
+            infoLabelRef!.text = ""
+            sender.backgroundColor = nil
+        }
+    }
+    
+    private func getFrameKey(rect: CGRect) -> String {
+        let frameXMin = String(Int(rect.minX))
+        let frameYMin = String(Int(rect.minY))
+        let frameKey = frameXMin + frameYMin
+        return frameKey
     }
 }

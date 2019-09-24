@@ -68,17 +68,30 @@ class APIController {
     }
     
     
-    func move(direction: String, completion: @escaping (Result<Room, NetworkError>) -> Void ) {
+    func move(direction: String, roomPrediction: String?, completion: @escaping (Result<Room, NetworkError>) -> Void ) {
+        
+        
         // Make Request
         var request = URLRequest(url: constants.moveURL)
         request.httpMethod = HTTPMethod.post.rawValue
         request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField:"Content-Type")
         
+        var bodyObject: [String: String]
         // JSON Body
-        let bodyObject: [String:String] = [
-            "direction": direction
-        ]
+        if roomPrediction != nil && roomPrediction != "" {
+            guard let roomID = roomPrediction else { print("Nil Room Prediction")
+                return
+            }
+            bodyObject = [
+                "direction": direction,
+                "next_room_id": roomID
+            ]
+        } else {
+            bodyObject = [
+                "direction": direction
+            ]
+        }
         request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
         
         // Decode JSON while handling errors
@@ -113,6 +126,9 @@ class APIController {
     
     // MARK: - Put Somewhere Else!
     func parseCoordinates(_ room: Room){
+        
+        // ID
+        let id = room.room_id
         
         // Strip, Split, Cast string coordinates into usable Int values
         var stringCoords = room.coordinates
@@ -160,7 +176,7 @@ class APIController {
         }
         
         // MapView readable Coordinate
-        let coordinate = Coordinates(x: xValue!, y: yValue!,
+        let coordinate = Coordinates(id: id, x: xValue!, y: yValue!,
                                      exits: exits, shop: isShop, nameChanger: isNameChanger, shrine: isShrine, transmogrifier: isTransmogrifier, mine: isMine, elevated: isElevated)
         
         self.currentCoordinate = coordinate
