@@ -96,7 +96,7 @@ class MainViewController: UIViewController {
         // Initial UI Setup
         updateUI()
         // Background Color
-        self.view.backgroundColor = #colorLiteral(red: 0.07691047341, green: 0.0657993257, blue: 0.1335668266, alpha: 1)
+        self.view.backgroundColor = #colorLiteral(red: 0.855196178, green: 0.8857429624, blue: 0.9006138444, alpha: 1)
         
         // Round Map
         mapView.layer.opacity = 0.80
@@ -113,8 +113,12 @@ class MainViewController: UIViewController {
         rightButton.clipsToBounds = true
         downButton.layer.cornerRadius = buttonRadius
         downButton.clipsToBounds = true
-        startButton.layer.cornerRadius = buttonRadius
+        startButton.layer.cornerRadius = 10.0
         startButton.clipsToBounds = true
+        
+        // Border
+        startButton.layer.borderColor = UIColor.darkGray.cgColor
+        startButton.layer.borderWidth = CGFloat(2.0)
     }
     
     func updateUI() {
@@ -155,8 +159,6 @@ class MainViewController: UIViewController {
                         self.runTimer()
                         
                         print("Curent Room: \(self.currentRoom)")
-                        // TODO: - Make Coordinates Object from currentRoom
-                        // and set that object to the MapView property
                     } else {
                         print("Room: \(room)")
                         print("Room Error: \(room.errors)")
