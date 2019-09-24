@@ -14,10 +14,10 @@ struct Player: Decodable {
     let cooldown: Double
     let encumbrance: Int
     let strength: Int
+    let speed: Int
     let gold: Int
     let inventory: [String] // Need to confirm type with Brady
     let status: [String]
-    let has_mined: Bool
     let errors: [String]
     let messages: [String]
     

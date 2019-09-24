@@ -30,6 +30,7 @@ class MainViewController: UIViewController {
     
     var isDashing = false
     var isFlying = false
+    var isPlaying = false
     // MARK: - Outlets
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -86,9 +87,12 @@ class MainViewController: UIViewController {
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
         print("Start")
-        startButton.isEnabled = false
-        startButton.isHidden = true
-        initPlayer()
+        if isPlaying == false {
+            startButton.setTitle("Status", for: .normal)
+            initPlayer()
+        } else {
+            showStatus()
+        }
     }
     
     // MARK: - View Life Cycle
@@ -185,6 +189,17 @@ class MainViewController: UIViewController {
         self.seconds = currentRoom.cooldown
     }
     
+    private func showStatus() {
+        apiController.getStatus { (result) in
+            if let player = try? result.get() {
+                print(player)
+            } else {
+                print("No player info?")
+                print(result)
+            }
+        }
+    }
+    
     private func movePlayer(_ direction: String) {
         print(direction)
         var prediction: String = ""
@@ -209,6 +224,7 @@ class MainViewController: UIViewController {
     }
     
     private func initPlayer() {
+        self.isPlaying = true
         apiController.initialize { (result) in
             if let room = try? result.get() {
                 

@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum HTTPHeader: String {
+    case authorization = "Authorization"
+    case contentType = "Content-Type"
+}
 
 enum HTTPMethod: String {
     case get = "GET"
@@ -31,12 +35,45 @@ class APIController {
     
     let constants = Constants() // Holds API Key and pre-built URLs
     
-    // TODO: Init Network Call Method
+    func getStatus(completion: @escaping (Result<Player, NetworkError>) -> Void ) {
+        // Make Request
+        var request = URLRequest(url: constants.statusURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        
+        // Decode JSON while handling errors
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(.failure(.badAuth))
+                return
+            }
+            
+            if let _ = error {
+                completion(.failure(.otherError))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.badData))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let player = try decoder.decode(Player.self, from: data)
+                completion(.success(player))
+            } catch {
+                completion(.failure(.noDecode))
+            }
+        }.resume()
+    }
+    
     func initialize(completion: @escaping (Result<Room, NetworkError>) -> Void ) {
         // Make Request
         var request = URLRequest(url: constants.initURL)
         request.httpMethod = HTTPMethod.get.rawValue
-        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: "Authorization")
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
         
         // Decode JSON while handling errors
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -75,8 +112,8 @@ class APIController {
         // Make Request
         var request = URLRequest(url: constants.dashURL)
         request.httpMethod = HTTPMethod.post.rawValue
-        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: "Authorization")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
         let bodyObject: [String:String] = [
             "direction": direction,
             "num_rooms": String(numRooms),
@@ -120,8 +157,8 @@ class APIController {
         // Make Request
         var request = URLRequest(url: constants.moveURL)
         request.httpMethod = HTTPMethod.post.rawValue
-        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: "Authorization")
-        request.addValue("application/json", forHTTPHeaderField:"Content-Type")
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
         
         var bodyObject: [String: String]
         // JSON Body
@@ -227,7 +264,6 @@ class APIController {
         
         self.currentCoordinate = coordinate
         self.mapSet.insert(coordinate)
-//        self.mapCoordinates.append(coordinate)
     }
     
 }
