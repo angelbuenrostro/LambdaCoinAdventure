@@ -21,12 +21,10 @@ class MainViewController: UIViewController {
                            exits: ["w","e"],
                            cooldown: 1.0,
                            errors: [],
-                           messages: ["testMessage"]) {
-        didSet {
-//            updateUI()
-//            self.view.setNeedsDisplay()
-        }
-    }
+                           messages: ["testMessage"])
+    var timer = Timer()
+    var isTimerRunning = false
+    var seconds = 0.0
     
     // MARK: - Outlets
     
@@ -34,6 +32,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var messagesLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
     
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var leftButton: UIButton!
@@ -137,7 +136,7 @@ class MainViewController: UIViewController {
         self.titleLabel.text = currentRoom.title
         self.idLabel.text = ("ID: \(String(currentRoom.room_id))")
         self.descriptionLabel.text = currentRoom.description
-        
+        self.seconds = currentRoom.cooldown
     }
     
     private func movePlayer(_ direction: String) {
@@ -152,6 +151,9 @@ class MainViewController: UIViewController {
                         self.view.setNeedsDisplay()
                         self.mapView.apiController = self.apiController
                         self.mapView.setNeedsDisplay()
+                        // Run Cooldown Timer
+                        self.runTimer()
+                        
                         print("Curent Room: \(self.currentRoom)")
                         // TODO: - Make Coordinates Object from currentRoom
                         // and set that object to the MapView property
@@ -164,8 +166,22 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func traverseMaze() {
-        
+    private func runTimer() {
+        self.seconds = self.currentRoom.cooldown
+        isTimerRunning = true
+        timerLabel.textColor = UIColor.systemRed
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer() {
+        timerLabel.text = "\(seconds)"
+        if seconds <= 0.0 {
+            timerLabel.text = "0"
+            timer.invalidate()
+            self.isTimerRunning = false
+            timerLabel.textColor = UIColor.darkGray
+        }
+        seconds -= 1
     }
 
 }

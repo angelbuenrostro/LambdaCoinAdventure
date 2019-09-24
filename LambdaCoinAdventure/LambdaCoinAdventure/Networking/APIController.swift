@@ -113,11 +113,12 @@ class APIController {
     
     // MARK: - Put Somewhere Else!
     func parseCoordinates(_ room: Room){
+        
+        // Strip, Split, Cast string coordinates into usable Int values
         var stringCoords = room.coordinates
         stringCoords.removeFirst()
         stringCoords.removeLast()
         let coordArray = stringCoords.split(separator: ",")
-        print("CoordArray: \(coordArray)")
         
         // Integer Coordinate Values
         let xValue = Int(coordArray[0])
@@ -128,7 +129,8 @@ class APIController {
         for exit in room.exits {
             exits.append(exit)
         }
-        
+
+        // Boolean flags for special locations
         var isShop: Bool = false
         var isNameChanger: Bool = false
         var isShrine: Bool = false
@@ -136,7 +138,6 @@ class APIController {
         var isMine: Bool = false
         var isElevated: Bool = false
         
-        // Boolean flags for special locations
         // TODO: - Replace if else statements with Switch
         if room.title == "Shop"{
             print("room is Shop")
