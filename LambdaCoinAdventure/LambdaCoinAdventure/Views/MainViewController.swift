@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
                            title: "testTitle",
                            description: "testDescription",
                            coordinates: "(1,1)",
-                           items: nil,
+                           items: [],
                            exits: ["w","e"],
                            cooldown: 1.0,
                            errors: [],

@@ -12,7 +12,7 @@ class MapView: UIView {
     
     
     var apiController : APIController? = nil
-    let pointSize = CGSize(width: 10, height: 10)
+    let pointSize = CGSize(width: 8, height: 8)
 
     
     // Only override draw() if you perform custom drawing.
@@ -101,15 +101,15 @@ class MapView: UIView {
         // Used to create a map origin point from which coordinates are offset
         let mapCenter = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         // Offsets coordinate point by arbitrary amount to create spacing between points
-        x *= Int(pointSize.width) + 18
-        y *= Int(-pointSize.height) - 9
+        x *= Int(pointSize.width) + 8
+        y *= Int(-pointSize.height) - 6
         
         return CGPoint(x: mapCenter.x + CGFloat(x), y: mapCenter.y + CGFloat(y))
     }
     
     private func drawHallway(direction: String, context: CGContext, startPoint: CGPoint) {
         context.beginPath()
-        let roomSizeOffset = (pointSize.height/2 + 2.2)
+        let roomSizeOffset = (pointSize.height/2 + 1.1)
         let centerX = startPoint.x
         let centerY = startPoint.y + pointSize.height
         

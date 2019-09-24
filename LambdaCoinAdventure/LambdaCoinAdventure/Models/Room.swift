@@ -30,7 +30,7 @@ struct Room: Decodable {
     let description: String // For now think its just a string.... might not be the case though. Ask Brady
     let coordinates: String // TODO: Need to parse it into a number after decoding JSON
     //let players: [] May not be needed
-    let items:[String]?
+    let items:[String]
     let exits: [String]
     let cooldown: Double
     let errors: [String]
