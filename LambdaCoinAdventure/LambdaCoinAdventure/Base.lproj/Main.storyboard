@@ -136,10 +136,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IBx-9f-sXT">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="IBx-9f-sXT">
                                         <rect key="frame" x="0.0" y="51" width="180" height="34"/>
                                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="tintColor" red="0.450602" green="0.54266000000000003" blue="0.90120500000000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
@@ -149,6 +151,30 @@
                                     <constraint firstAttribute="trailing" secondItem="IBx-9f-sXT" secondAttribute="trailing" id="ohh-Md-wg7"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDT-sF-Xcu">
+                                <rect key="frame" x="1195" y="828" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ZPx-dc-2jy"/>
+                                    <constraint firstAttribute="width" constant="50" id="gd1-Q1-d7W"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="👟"/>
+                                <connections>
+                                    <action selector="dashButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GYD-i7-dob"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ekl-05-MOQ">
+                                <rect key="frame" x="1309" y="827" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5c1-El-4X8"/>
+                                    <constraint firstAttribute="width" constant="50" id="iQU-0C-rZT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="🛩"/>
+                                <connections>
+                                    <action selector="flyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eBe-M3-5Vz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
@@ -157,13 +183,17 @@
                             <constraint firstItem="LRz-nK-BPe" firstAttribute="top" secondItem="kCZ-1S-drp" secondAttribute="bottom" constant="19" id="BM1-2K-PeZ"/>
                             <constraint firstItem="Xwg-NU-t4P" firstAttribute="centerX" secondItem="LRz-nK-BPe" secondAttribute="centerX" id="EUj-ok-sqN"/>
                             <constraint firstItem="Y9T-m8-Ute" firstAttribute="centerX" secondItem="9RC-V2-kwh" secondAttribute="centerX" id="FJL-wL-Bmq"/>
+                            <constraint firstItem="Ekl-05-MOQ" firstAttribute="top" secondItem="kCZ-1S-drp" secondAttribute="bottom" constant="8" id="IKe-sw-Y8h"/>
                             <constraint firstItem="Xwg-NU-t4P" firstAttribute="leading" secondItem="uk0-kx-bSo" secondAttribute="trailing" constant="30" id="Ih7-ex-VSi"/>
                             <constraint firstItem="Xwg-NU-t4P" firstAttribute="centerY" secondItem="uk0-kx-bSo" secondAttribute="centerY" id="LXC-CM-KXs"/>
                             <constraint firstItem="BER-y3-kOn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="Smz-EP-VL6"/>
+                            <constraint firstItem="DDT-sF-Xcu" firstAttribute="leading" secondItem="OGF-Sd-SP1" secondAttribute="leading" constant="-10" id="WYJ-qc-5r2"/>
                             <constraint firstItem="kCZ-1S-drp" firstAttribute="leading" secondItem="oC4-ke-fkY" secondAttribute="trailing" id="X5H-F4-ie6"/>
                             <constraint firstItem="uk0-kx-bSo" firstAttribute="leading" secondItem="BER-y3-kOn" secondAttribute="trailing" constant="12" id="XOI-0W-Zjf"/>
+                            <constraint firstItem="DDT-sF-Xcu" firstAttribute="top" secondItem="LRz-nK-BPe" secondAttribute="top" constant="-10" id="b2W-46-biZ"/>
                             <constraint firstItem="oC4-ke-fkY" firstAttribute="top" secondItem="uk0-kx-bSo" secondAttribute="bottom" constant="8" id="blL-lq-EGE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LRz-nK-BPe" secondAttribute="bottom" constant="24" id="euK-oz-cc3"/>
+                            <constraint firstItem="Ekl-05-MOQ" firstAttribute="leading" secondItem="LRz-nK-BPe" secondAttribute="trailing" constant="8" id="iCQ-Pe-bp7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LRz-nK-BPe" secondAttribute="trailing" constant="65" id="jTQ-rr-UaL"/>
                             <constraint firstItem="Y9T-m8-Ute" firstAttribute="centerY" secondItem="ise-CY-Ae3" secondAttribute="centerY" id="jlA-tZ-LSD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kCZ-1S-drp" secondAttribute="trailing" id="k9g-O4-5iO"/>
@@ -181,8 +211,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="dashButton" destination="DDT-sF-Xcu" id="zY2-vr-4m4"/>
                         <outlet property="descriptionLabel" destination="89s-lI-6sZ" id="UJW-Jh-8g2"/>
                         <outlet property="downButton" destination="Zyr-lZ-fve" id="IWd-xH-cAd"/>
+                        <outlet property="flyButton" destination="Ekl-05-MOQ" id="1Hv-X8-xkS"/>
                         <outlet property="idLabel" destination="41M-La-C1K" id="7t6-BF-se2"/>
                         <outlet property="leftButton" destination="6LG-3t-H41" id="gfe-Dr-xSD"/>
                         <outlet property="mapView" destination="oC4-ke-fkY" id="Q2M-KC-Gjo"/>

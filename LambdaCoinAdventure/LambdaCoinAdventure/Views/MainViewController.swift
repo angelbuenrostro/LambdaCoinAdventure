@@ -23,9 +23,11 @@ class MainViewController: UIViewController {
                            errors: [],
                            messages: ["testMessage"])
     var timer = Timer()
-    var isTimerRunning = false
     var seconds = 0.0
+    var isTimerRunning = false
     
+    var isDashing = false
+    var isFlying = false
     // MARK: - Outlets
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -39,13 +41,36 @@ class MainViewController: UIViewController {
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var predictionTextField: UITextField!
+    @IBOutlet weak var dashButton: UIButton!
+    @IBOutlet weak var flyButton: UIButton!
     
     @IBOutlet weak var startButton: UIButton!
     
     @IBOutlet weak var mapView: MapView!
     
     // MARK: - Actions
-
+    @IBAction func dashButtonPressed(_ sender: UIButton) {
+        if isFlying == false {
+            isDashing = !isDashing
+            if isDashing {
+                dashButton.backgroundColor = #colorLiteral(red: 0.3331030011, green: 0.3331645429, blue: 0.3330943882, alpha: 1)
+            } else {
+                dashButton.backgroundColor = UIColor.clear
+            }
+        }
+    }
+    
+    @IBAction func flyButtonPressed(_ sender: UIButton) {
+        if isDashing == false {
+            isFlying = !isFlying
+            if isFlying {
+                flyButton.backgroundColor = #colorLiteral(red: 0.3331030011, green: 0.3331645429, blue: 0.3330943882, alpha: 1)
+            } else {
+                flyButton.backgroundColor = UIColor.clear
+            }
+        }
+    }
+    
     @IBAction func upButtonPressed(_ sender: UIButton) {    movePlayer("n") }
     @IBAction func rightButtonPressed(_ sender: UIButton) { movePlayer("e") }
     @IBAction func leftButtonPressed(_ sender: UIButton) {  movePlayer("w") }
@@ -98,6 +123,11 @@ class MainViewController: UIViewController {
         startButton.clipsToBounds = true
         timerLabel.layer.cornerRadius = 20.0
         timerLabel.clipsToBounds = true
+        dashButton.layer.cornerRadius = buttonRadius
+        dashButton.clipsToBounds = true
+        flyButton.layer.cornerRadius = buttonRadius
+        flyButton.clipsToBounds = true
+        
         
         // Border
         startButton.layer.borderColor = UIColor.darkGray.cgColor
@@ -137,6 +167,8 @@ class MainViewController: UIViewController {
         if predictionTextField.text != nil {
             prediction = predictionTextField.text!
         }
+        
+        // If isDashing = true , Make appropriate API Move Call
         
         apiController.move(direction: direction, roomPrediction: prediction) { (result) in
             if let room = try? result.get() {
