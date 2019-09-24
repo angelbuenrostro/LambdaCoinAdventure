@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oC4-ke-fkY" customClass="MapView" customModule="LambdaCoinAdventure" customModuleProvider="target">
-                                <rect key="frame" x="24" y="100" width="1162" height="880"/>
+                                <rect key="frame" x="-8" y="100" width="1194" height="932"/>
                                 <color key="backgroundColor" red="0.56515239197530864" green="0.53067632854331781" blue="0.52065007182102696" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="LRz-nK-BPe">
@@ -43,7 +43,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="49" translatesAutoresizingMaskIntoConstraints="NO" id="OGF-Sd-SP1">
-                                <rect key="frame" x="1204" y="886" width="145" height="48"/>
+                                <rect key="frame" x="1205" y="886" width="145" height="48"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6LG-3t-H41">
                                         <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
@@ -116,10 +116,11 @@
                                     <action selector="startButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gOo-Hh-Lb8"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9T-m8-Ute">
-                                <rect key="frame" x="1236" y="780" width="80" height="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9T-m8-Ute">
+                                <rect key="frame" x="1252" y="884" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="qIU-Du-jEP"/>
+                                    <constraint firstAttribute="height" constant="50" id="7DZ-p8-gck"/>
+                                    <constraint firstAttribute="width" constant="50" id="Dqi-sb-75e"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -129,24 +130,23 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OGF-Sd-SP1" secondAttribute="bottom" constant="70" id="392-Gc-WzH"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y9T-m8-Ute" secondAttribute="trailing" constant="50" id="5mn-nz-NKg"/>
                             <constraint firstItem="Xwg-NU-t4P" firstAttribute="centerX" secondItem="LRz-nK-BPe" secondAttribute="centerX" id="EUj-ok-sqN"/>
                             <constraint firstItem="Xwg-NU-t4P" firstAttribute="leading" secondItem="uk0-kx-bSo" secondAttribute="trailing" constant="30" id="Ih7-ex-VSi"/>
                             <constraint firstItem="Xwg-NU-t4P" firstAttribute="centerY" secondItem="uk0-kx-bSo" secondAttribute="centerY" id="LXC-CM-KXs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Y9T-m8-Ute" secondAttribute="bottom" constant="70" id="Qdj-Sm-knp"/>
                             <constraint firstItem="BER-y3-kOn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="Smz-EP-VL6"/>
-                            <constraint firstItem="Y9T-m8-Ute" firstAttribute="leading" secondItem="oC4-ke-fkY" secondAttribute="trailing" constant="50" id="TL2-ZM-xH1"/>
                             <constraint firstItem="uk0-kx-bSo" firstAttribute="leading" secondItem="BER-y3-kOn" secondAttribute="trailing" constant="12" id="XOI-0W-Zjf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y9T-m8-Ute" secondAttribute="trailing" constant="64" id="aIa-JX-AKO"/>
                             <constraint firstItem="oC4-ke-fkY" firstAttribute="top" secondItem="uk0-kx-bSo" secondAttribute="bottom" constant="8" id="blL-lq-EGE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LRz-nK-BPe" secondAttribute="bottom" constant="24" id="euK-oz-cc3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LRz-nK-BPe" secondAttribute="trailing" constant="65" id="jTQ-rr-UaL"/>
                             <constraint firstItem="Xwg-NU-t4P" firstAttribute="height" secondItem="uk0-kx-bSo" secondAttribute="height" id="mMB-Ly-VsJ"/>
                             <constraint firstItem="uk0-kx-bSo" firstAttribute="trailing" secondItem="oC4-ke-fkY" secondAttribute="trailing" id="ne9-i9-0MV"/>
                             <constraint firstItem="oC4-ke-fkY" firstAttribute="top" secondItem="BER-y3-kOn" secondAttribute="bottom" constant="8" id="qBQ-aS-poI"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OGF-Sd-SP1" secondAttribute="trailing" constant="17" id="rNv-6P-xQB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OGF-Sd-SP1" secondAttribute="trailing" constant="16" id="rNv-6P-xQB"/>
                             <constraint firstItem="BER-y3-kOn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="rzc-Oy-GVg"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oC4-ke-fkY" secondAttribute="bottom" constant="24" id="vS0-vz-Fw3"/>
-                            <constraint firstItem="oC4-ke-fkY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="vuh-K3-Khl"/>
-                            <constraint firstItem="LRz-nK-BPe" firstAttribute="top" secondItem="Y9T-m8-Ute" secondAttribute="bottom" constant="18" id="vy3-9r-sow"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oC4-ke-fkY" secondAttribute="bottom" constant="-28" id="vS0-vz-Fw3"/>
+                            <constraint firstItem="oC4-ke-fkY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="-8" id="vuh-K3-Khl"/>
                             <constraint firstItem="uk0-kx-bSo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="wDz-J6-8eu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oC4-ke-fkY" secondAttribute="trailing" constant="180" id="xFI-cD-uNo"/>
                             <constraint firstItem="oC4-ke-fkY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="xkj-iC-iJl"/>

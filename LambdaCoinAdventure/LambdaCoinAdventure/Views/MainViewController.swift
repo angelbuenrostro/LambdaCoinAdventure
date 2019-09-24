@@ -52,33 +52,9 @@ class MainViewController: UIViewController {
     
     @IBAction func startButtonPressed(_ sender: UIButton) {
         print("Start")
-        
-        // Clear MapView Coordinates
-        
-        
-        // Call Lambda API endpoint
-        apiController.initialize { (result) in
-            if let room = try? result.get() {
-                
-                print("Room: \(room)")
-                print(room.errors.isEmpty)
-                DispatchQueue.main.async {
-                    if room.errors.isEmpty {
-                        // Sets returned API room as currentRoom triggering a didSet UI update
-                        self.currentRoom = room
-                        self.updateUI()
-                        self.view.setNeedsDisplay()
-                        self.mapView.apiController = self.apiController
-                        self.mapView.setNeedsDisplay()
-                        // TODO: - Make Coordinates Object from currentRoom
-                        // and set that object to the MapView property
-                    } else {
-                        print("Room: \(room)")
-                        print("Room Error: \(room.errors)")
-                    }
-                }
-            }
-        }
+        startButton.isEnabled = false
+        startButton.isHidden = true
+        initPlayer()
     }
     
     // MARK: - View Life Cycle
@@ -96,7 +72,8 @@ class MainViewController: UIViewController {
         // Initial UI Setup
         updateUI()
         // Background Color
-        self.view.backgroundColor = #colorLiteral(red: 0.855196178, green: 0.8857429624, blue: 0.9006138444, alpha: 1)
+        self.view.backgroundColor = #colorLiteral(red: 0.8590026498, green: 0.9080110788, blue: 0.9488238692, alpha: 1)
+        self.mapView.backgroundColor = #colorLiteral(red: 0.1394269764, green: 0.1392630935, blue: 0.1629098058, alpha: 1)
         
         // Round Map
         mapView.layer.opacity = 0.80
@@ -119,6 +96,9 @@ class MainViewController: UIViewController {
         // Border
         startButton.layer.borderColor = UIColor.darkGray.cgColor
         startButton.layer.borderWidth = CGFloat(2.0)
+        
+        // Ready Cooldown
+        self.timerLabel.text = ""
     }
     
     func updateUI() {
@@ -157,6 +137,7 @@ class MainViewController: UIViewController {
                         self.mapView.setNeedsDisplay()
                         // Run Cooldown Timer
                         self.runTimer()
+                        self.validateMoveAbility()
                         
                         print("Curent Room: \(self.currentRoom)")
                     } else {
@@ -168,20 +149,60 @@ class MainViewController: UIViewController {
         }
     }
     
+    private func initPlayer() {
+        apiController.initialize { (result) in
+            if let room = try? result.get() {
+                
+                print("Room: \(room)")
+                print(room.errors.isEmpty)
+                DispatchQueue.main.async {
+                    if room.errors.isEmpty {
+                        // Sets returned API room as currentRoom triggering a didSet UI update
+                        self.currentRoom = room
+                        self.updateUI()
+                        self.view.setNeedsDisplay()
+                        self.mapView.apiController = self.apiController
+                        self.mapView.setNeedsDisplay()
+                        // TODO: - Make Coordinates Object from currentRoom
+                        // and set that object to the MapView property
+                    } else {
+                        print("Room: \(room)")
+                        print("Room Error: \(room.errors)")
+                    }
+                }
+            }
+        }
+    }
+    
     private func runTimer() {
         self.seconds = self.currentRoom.cooldown
-        isTimerRunning = true
-        timerLabel.textColor = UIColor.systemRed
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+        isTimerRunning = true
+    }
+    
+    func validateMoveAbility(){
+        if isTimerRunning {
+            upButton.isEnabled = false
+            downButton.isEnabled = false
+            rightButton.isEnabled = false
+            leftButton.isEnabled = false
+        } else {
+            upButton.isEnabled = true
+            downButton.isEnabled = true
+            rightButton.isEnabled = true
+            leftButton.isEnabled = true
+        }
     }
     
     @objc func updateTimer() {
-        timerLabel.text = "\(seconds)"
+        timerLabel.text = "\(Int(seconds))" // May cause issues if automating traversal as casting to int will round the time interval
+        timerLabel.textColor = UIColor.systemRed
         if seconds <= 0.0 {
-            timerLabel.text = "0"
+            timerLabel.text = ""
             timer.invalidate()
             self.isTimerRunning = false
             timerLabel.textColor = UIColor.darkGray
+            validateMoveAbility()
         }
         seconds -= 1
     }

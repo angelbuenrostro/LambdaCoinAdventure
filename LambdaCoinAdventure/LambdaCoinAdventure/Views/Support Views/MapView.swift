@@ -53,15 +53,6 @@ class MapView: UIView {
                 }
             }
             
-            // Checks to see player's current position within the map
-            guard let currentCoordinate = apiController.currentCoordinate else { return }
-            if coordinate == currentCoordinate {
-                //UIColor(red: 0.40, green: 0.22, blue: 0.94, alpha: 1.00)
-                let fillColor = #colorLiteral(red: 0.6036551595, green: 0.2437257618, blue: 0.3888348937, alpha: 1).cgColor
-                context.setFillColor(fillColor)
-                context.fillEllipse(in: pointRect)
-            }
-            
             // Draw Room Circle
             var roomColor = UIColor.white.cgColor
             var lineWidth = CGFloat(2)
@@ -88,9 +79,16 @@ class MapView: UIView {
             context.setLineWidth(lineWidth)
             context.setLineCap(.round)
             context.setStrokeColor(roomColor)
-            
+
+            // Checks to see player's current position within the map
+            guard let currentCoordinate = apiController.currentCoordinate else { return }
+            if coordinate == currentCoordinate {
+                //UIColor(red: 0.40, green: 0.22, blue: 0.94, alpha: 1.00)
+                context.setFillColor(UIColor.white.cgColor)
+                context.fillEllipse(in: pointRect)
+            }
+                        
             context.strokeEllipse(in: pointRect)
-            
         }
     }
     
