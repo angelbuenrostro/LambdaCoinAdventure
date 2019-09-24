@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2705EE6233AC2CC003F5731 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2705EE5233AC2CC003F5731 /* Player.swift */; };
 		A289C63423370C9D00EC056C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289C63323370C9D00EC056C /* AppDelegate.swift */; };
 		A289C63623370C9D00EC056C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289C63523370C9D00EC056C /* SceneDelegate.swift */; };
 		A289C63B23370C9D00EC056C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A289C63923370C9D00EC056C /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A2705EE5233AC2CC003F5731 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		A289C63023370C9D00EC056C /* LambdaCoinAdventure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LambdaCoinAdventure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A289C63323370C9D00EC056C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A289C63523370C9D00EC056C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				A289C64F23370D2200EC056C /* Proof.swift */,
 				A289C65123370D2800EC056C /* Balance.swift */,
 				A289C6592337AAAB00EC056C /* Coordinates.swift */,
+				A2705EE5233AC2CC003F5731 /* Player.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2705EE6233AC2CC003F5731 /* Player.swift in Sources */,
 				A289C63423370C9D00EC056C /* AppDelegate.swift in Sources */,
 				A289C64E23370D1B00EC056C /* Room.swift in Sources */,
 				A289C63623370C9D00EC056C /* SceneDelegate.swift in Sources */,
