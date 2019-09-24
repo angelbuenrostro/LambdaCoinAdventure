@@ -69,6 +69,8 @@ class MainViewController: UIViewController {
                         self.currentRoom = room
                         self.updateUI()
                         self.view.setNeedsDisplay()
+                        self.mapView.apiController = self.apiController
+                        self.mapView.setNeedsDisplay()
                         // TODO: - Make Coordinates Object from currentRoom
                         // and set that object to the MapView property
                     } else {
@@ -135,6 +137,7 @@ class MainViewController: UIViewController {
         self.titleLabel.text = currentRoom.title
         self.idLabel.text = ("ID: \(String(currentRoom.room_id))")
         self.descriptionLabel.text = currentRoom.description
+        
     }
     
     private func movePlayer(_ direction: String) {
@@ -147,6 +150,8 @@ class MainViewController: UIViewController {
                         self.currentRoom = room
                         self.updateUI()
                         self.view.setNeedsDisplay()
+                        self.mapView.apiController = self.apiController
+                        self.mapView.setNeedsDisplay()
                         print("Curent Room: \(self.currentRoom)")
                         // TODO: - Make Coordinates Object from currentRoom
                         // and set that object to the MapView property

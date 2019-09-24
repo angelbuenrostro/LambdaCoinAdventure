@@ -10,43 +10,28 @@ import UIKit
 
 class MapView: UIView {
     
-    var currentCoordinate: Coordinates = Coordinates(x: 60, y: 60, exits: ["n","s","w","e"]) {
-        didSet{
-            // TODO: Call an update function
-            self.setNeedsDisplay()
-        }
-    }
     
-    var pointsArray:[Coordinates] = [Coordinates(x: 60,y: 61, exits: ["n","s", "w","e"]),
-                                     Coordinates(x: 61,y: 61, exits: ["n","s", "w"]),
-                                     Coordinates(x: 45,y: 45, exits: ["n","s", "e"]),
-                                     Coordinates(x: 75,y: 75, exits: ["s", "w", "e"]),
-                                     Coordinates(x: 75,y: 45, exits: ["s", "w", "e"]),
-                                     Coordinates(x: 45,y: 75, exits: ["s", "w", "e"]),
-                                     Coordinates(x: 60,y: 60, exits: ["n","s","w","e"])] {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
+    var apiController : APIController? = nil
     let pointSize = CGSize(width: 12, height: 12)
 
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
+        print("Drawing Map")
         // Drawing code
-        let viewWidth: CGFloat = self.bounds.width
-        let viewHeight: CGFloat = self.bounds.height
-        
-        print(viewWidth)
-        print(viewHeight)
         
         // Get Context
         //colorLiteral(red: 0.1311326623, green: 0.3781063557, blue: 0.6658913493, alpha: 1)
         let context = UIGraphicsGetCurrentContext()!
+            
+        // Check for apiController reference
+        guard let apiController = self.apiController else { return }
         
         // Draw Points
-        for coordinate in pointsArray {
+        
+        print("Num in mapSet: \(apiController.mapSet.count)")
+        for coordinate in apiController.mapSet {
             
             let roomColor = UIColor.darkGray.cgColor
             
@@ -75,6 +60,7 @@ class MapView: UIView {
             }
             
             // Checks to see player's current position within the map
+            guard let currentCoordinate = apiController.currentCoordinate else { return }
             if coordinate == currentCoordinate {
                 //UIColor(red: 0.40, green: 0.22, blue: 0.94, alpha: 1.00)
                 let fillColor = #colorLiteral(red: 0.6036551595, green: 0.2437257618, blue: 0.3888348937, alpha: 1).cgColor

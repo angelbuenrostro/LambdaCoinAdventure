@@ -24,6 +24,11 @@ enum NetworkError: Error {
 
 class APIController {
     
+    // Building a map to feed into the MapView
+    var mapSet: Set<Coordinates> = []
+//    var mapCoordinates:[Coordinates] = []
+    var currentCoordinate: Coordinates? = nil
+    
     let constants = Constants() // Holds API Key and pre-built URLs
     
     // TODO: Init Network Call Method
@@ -54,6 +59,7 @@ class APIController {
             let decoder = JSONDecoder()
             do {
                 let room = try decoder.decode(Room.self, from: data)
+                self.parseCoordinates(room)
                 completion(.success(room))
             } catch {
                 completion(.failure(.noDecode))
@@ -96,6 +102,7 @@ class APIController {
             let decoder = JSONDecoder()
             do {
                 let room = try decoder.decode(Room.self, from: data)
+                self.parseCoordinates(room)
                 completion(.success(room))
             } catch {
                 completion(.failure(.noDecode))
@@ -104,6 +111,60 @@ class APIController {
     }
     
     
-    
+    // MARK: - Put Somewhere Else!
+    func parseCoordinates(_ room: Room){
+        var stringCoords = room.coordinates
+        stringCoords.removeFirst()
+        stringCoords.removeLast()
+        let coordArray = stringCoords.split(separator: ",")
+        print("CoordArray: \(coordArray)")
+        
+        // Integer Coordinate Values
+        let xValue = Int(coordArray[0])
+        let yValue = Int(coordArray[1])
+        
+        // Array of directional exits
+        var exits: [String] = []
+        for exit in room.exits {
+            exits.append(exit)
+        }
+        
+        var isShop: Bool = false
+        var isNameChanger: Bool = false
+        var isShrine: Bool = false
+        var isTransmogrifier: Bool = false
+        var isMine: Bool = false
+        var isElevated: Bool = false
+        
+        // Boolean flags for special locations
+        // TODO: - Replace if else statements with Switch
+        if room.title == "Shop"{
+            print("room is Shop")
+            isShop = true
+        } else if room.title == "Name Changer" {
+            print("room is Name Changer")
+            isNameChanger = true
+        } else if room.title == "Shrine" {
+            print("room is Shrine")
+            isShrine = true
+        } else if room.title == "Transmogrifier" {
+            print("room is Transmogrifier")
+            isTransmogrifier = true
+        } else if room.title == "Mine" {
+            print("room is Mine")
+            isMine = true
+        } else if room.description.contains("elevated"){
+            print("room is elevated")
+            isElevated = true
+        }
+        
+        // MapView readable Coordinate
+        let coordinate = Coordinates(x: xValue!, y: yValue!,
+                                     exits: exits, shop: isShop, nameChanger: isNameChanger, shrine: isShrine, transmogrifier: isTransmogrifier, mine: isMine, elevated: isElevated)
+        
+        self.currentCoordinate = coordinate
+        self.mapSet.insert(coordinate)
+//        self.mapCoordinates.append(coordinate)
+    }
     
 }
