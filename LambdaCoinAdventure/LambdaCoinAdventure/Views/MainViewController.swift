@@ -47,6 +47,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var encumbranceLabel: UILabel!
     
+    @IBOutlet weak var inventoryBGView: UIView!
+    @IBOutlet weak var inventoryOutlet: UILabel!
     // Controls
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var leftButton: UIButton!
@@ -133,32 +135,46 @@ class MainViewController: UIViewController {
         
         // Borders
         mapView.layer.borderWidth = 2.0
-        mapView.layer.borderColor = #colorLiteral(red: 0.06660000235, green: 0.06315000355, blue: 0.06259000301, alpha: 1)
+        mapView.layer.borderColor = #colorLiteral(red: 0.07690999657, green: 0.06580000371, blue: 0.1335700005, alpha: 1)
         startButton.layer.borderColor = #colorLiteral(red: 0.5765699744, green: 0.8659200072, blue: 0.9998999834, alpha: 1)
         startButton.layer.borderWidth = CGFloat(1.0)
+        
+        statusBGView.layer.borderWidth = 1.0
+        statusBGView.layer.borderColor = #colorLiteral(red: 0.07690999657, green: 0.06580000371, blue: 0.1335700005, alpha: 1)
+        inventoryBGView.layer.borderWidth = 1.0
+        inventoryBGView.layer.borderColor = #colorLiteral(red: 0.07690999657, green: 0.06580000371, blue: 0.1335700005, alpha: 1)
         
         // Shadows
         startButton.layer.shadowPath = UIBezierPath(roundedRect: self.startButton.bounds, cornerRadius: self.startButton.layer.cornerRadius).cgPath
         startButton.layer.shadowColor = #colorLiteral(red: 0.3600000143, green: 0.7900000215, blue: 0.9599999785, alpha: 1)
         startButton.layer.shadowRadius = 8
-        startButton.layer.shadowOpacity = 0.7
+        startButton.layer.shadowOpacity = 0.6
         startButton.layer.masksToBounds = false
         
         statusBGView.layer.shadowPath = UIBezierPath(roundedRect: self.statusBGView.bounds, cornerRadius: self.statusBGView.layer.cornerRadius).cgPath
         statusBGView.layer.shadowColor = UIColor.black.cgColor
-        statusBGView.layer.shadowRadius = 12
-        statusBGView.layer.shadowOpacity = 0.8
+        statusBGView.layer.shadowRadius = 8
+        statusBGView.layer.shadowOpacity = 0.5
         statusBGView.layer.masksToBounds = false
+//        statusBGView.layer.shadowOffset = CGSize(width: 4, height: 0)
+        
+        inventoryBGView.layer.shadowPath = UIBezierPath(roundedRect: self.inventoryBGView.bounds, cornerRadius: self.inventoryBGView.layer.cornerRadius).cgPath
+        inventoryBGView.layer.shadowColor = UIColor.black.cgColor
+        inventoryBGView.layer.shadowRadius = 5
+        inventoryBGView.layer.shadowOpacity = 0.5
+        inventoryBGView.layer.masksToBounds = false
+//        inventoryBGView.layer.shadowOffset = CGSize(width: 4, height: 0)
         
         mapView.layer.shadowPath = UIBezierPath(roundedRect: self.mapView.bounds, cornerRadius: self.mapView.layer.cornerRadius).cgPath
         mapView.layer.shadowColor = UIColor.black.cgColor
         mapView.layer.shadowRadius = 8
-        mapView.layer.shadowOpacity = 0.8
+        mapView.layer.shadowOpacity = 0.5
         mapView.layer.masksToBounds = false
         
         
         // Round StatusBG
         statusBGView.layer.cornerRadius = 10
+        inventoryBGView.layer.cornerRadius = 10
         
         // Round Map
         mapView.layer.opacity = 0.80
@@ -232,6 +248,10 @@ class MainViewController: UIViewController {
         var prediction: String = ""
         if predictionTextField.text != nil {
             prediction = predictionTextField.text!
+            // Resets text field after each move
+            if predictionTextField.text != "GUESS" {
+                predictionTextField.text = ""
+            }
         }
         
         // If isDashing = true , Make appropriate API Move Call
