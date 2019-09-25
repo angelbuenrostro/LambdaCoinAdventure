@@ -183,10 +183,234 @@ class APIController {
             }
         }.resume()
     }
-    // MARK: TODO - Wear
+    // MARK: TODO
     
-//    func wear(itemName: String, completion: @escaping)
+    func nameChange(name: String, completion: @escaping (Error?) -> ()) {
+        var request = URLRequest(url: constants.nameChangeURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
+        let bodyObject: [String:String] = [
+            "name": name
+        ]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
+        
+        // Send Request
+        URLSession.shared.dataTask(with: request) { (_, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
+                return
+            }
+            if let error = error {
+                completion(error)
+                return
+            }
+            completion(nil)
+        }.resume()
+    }
     
+    func pray(completion: @escaping(Error?)-> ()) {
+        var request = URLRequest(url: constants.prayURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
+        
+        // Send Request
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
+                return
+            }
+            if let error = error {
+                completion(error)
+                return
+            }
+            completion(nil)
+        }.resume()
+    }
+    
+    func proof(completion: @escaping(Result<Proof, NetworkError>) -> Void ){
+        var request = URLRequest(url: constants.proofURL)
+            request.httpMethod = HTTPMethod.post.rawValue
+            request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+            request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
+            
+            // Send Request
+                URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    if let response = response as? HTTPURLResponse,
+                        response.statusCode == 401 {
+                        completion(.failure(.badAuth))
+                        return
+                    }
+                    
+                    if let _ = error {
+                        completion(.failure(.otherError))
+                        return
+                    }
+                    
+                    guard let data = data else {
+                        completion(.failure(.badData))
+                        return
+                    }
+                    
+                    let decoder = JSONDecoder()
+                    do {
+                        let proof = try decoder.decode(Proof.self, from: data)
+                        completion(.success(proof))
+                    } catch {
+                        completion(.failure(.noDecode))
+                    }
+                }.resume()
+            }
+    
+    func mine(proposedProof: Int, completion: @escaping(Result<Room, NetworkError>) -> Void ) {
+        var request = URLRequest(url: constants.coinMineURL)
+            request.httpMethod = HTTPMethod.post.rawValue
+            request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+            request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
+            let bodyObject: [String:Int] = [
+                "proof": proposedProof
+            ]
+            request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
+            
+            print(request)
+            print(bodyObject)
+            // Decode JSON while handling errors
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let response = response as? HTTPURLResponse,
+                    response.statusCode == 401 {
+                    completion(.failure(.badAuth))
+                    return
+                }
+                
+                if let _ = error {
+                    completion(.failure(.otherError))
+                    return
+                }
+                
+                guard let data = data else {
+                    completion(.failure(.badData))
+                    return
+                }
+                
+                let decoder = JSONDecoder()
+                do {
+                    let room = try decoder.decode(Room.self, from: data)
+                    completion(.success(room))
+                } catch {
+                        completion(.failure(.noDecode))
+                    }
+            }.resume()
+    }
+    
+    func wear(itemName: String, completion: @escaping(Error?)-> ()) {
+        var request = URLRequest(url: constants.wearURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
+        
+        let bodyObject: [String:String] = [
+            "name": itemName
+        ]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
+        
+        // Send Request
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
+                return
+            }
+            if let error = error {
+                completion(error)
+                return
+            }
+            completion(nil)
+        }.resume()
+    }
+    
+    func balance(completion: @escaping(Result<Examination, NetworkError>) -> Void) {
+        var request = URLRequest(url: constants.balanceURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
+        
+        // Decode JSON while handling errors
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(.failure(.badAuth))
+                return
+            }
+            
+            if let _ = error {
+                completion(.failure(.otherError))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.badData))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let balance = try decoder.decode(Examination.self, from: data)
+                completion(.success(balance))
+            } catch {
+                    completion(.failure(.noDecode))
+                }
+        }.resume()
+    }
+    
+    func ghostCourier(action: String, itemName: String, completion: @escaping(Result<Room, NetworkError>) -> Void ) {
+        var request = URLRequest(url: constants.ghostCarryURL)
+        
+        if action == "give" {
+            request.url = constants.ghostCarryURL
+        } else {
+            request.url = constants.ghostReceiveURL
+        }
+            request.httpMethod = HTTPMethod.post.rawValue
+            request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+            request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
+        
+        if action == "give" {
+            let bodyObject: [String:String] = [
+                "name": itemName
+            ]
+            request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
+        }
+            
+            // Decode JSON while handling errors
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let response = response as? HTTPURLResponse,
+                    response.statusCode == 401 {
+                    completion(.failure(.badAuth))
+                    return
+                }
+                
+                if let _ = error {
+                    completion(.failure(.otherError))
+                    return
+                }
+                
+                guard let data = data else {
+                    completion(.failure(.badData))
+                    return
+                }
+                
+                let decoder = JSONDecoder()
+                do {
+                    let room = try decoder.decode(Room.self, from: data)
+                    completion(.success(room))
+                } catch {
+                        completion(.failure(.noDecode))
+                    }
+            }.resume()
+    }
     
     func examine(name: String, completion: @escaping(Result<Examination, NetworkError>) -> Void) {
         var request = URLRequest(url: constants.examineURL)

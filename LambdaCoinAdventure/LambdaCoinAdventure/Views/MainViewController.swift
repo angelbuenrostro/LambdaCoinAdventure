@@ -197,7 +197,7 @@ class MainViewController: UIViewController {
         }
     }
     @IBAction func nameChangeButtonPressed(_ sender: UIButton) {
-        // Needs text
+        // Needs text, MUST BE AT NAME CHANGER, MUST HAVE 1000 GOLD ELSE DO NOT DO ANYTHING
         if !isAbilitiesTextfieldEmpty() {
             print("button pressed")
             
