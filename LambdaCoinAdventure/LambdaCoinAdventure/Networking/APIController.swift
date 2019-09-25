@@ -24,6 +24,7 @@ enum NetworkError: Error {
     case otherError
     case badData
     case noDecode
+    case wrongType
 }
 
 class APIController {
@@ -101,6 +102,129 @@ class APIController {
             } catch {
                 completion(.failure(.noDecode))
             }
+        }.resume()
+    }
+    
+    func treasure(action: String, treasureName: String, completion: @escaping (Error?) -> ()) {
+        var request: URLRequest?
+        if action == "take"{
+            request = URLRequest(url: constants.treasureTakeURL)
+        } else {
+            request = URLRequest(url: constants.treasureDropURL)
+        }
+        guard var treasureRequest = request else { fatalError("Could not make treasure request URL") }
+        treasureRequest.httpMethod = HTTPMethod.post.rawValue
+        treasureRequest.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        treasureRequest.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
+        let bodyObject: [String:String] = [
+            "name":"\(treasureName)"
+        ]
+        treasureRequest.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
+        
+        // Send Request
+        URLSession.shared.dataTask(with: treasureRequest) { (_, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
+                return
+            }
+            
+            if let error = error {
+                completion(error)
+                return
+            }
+            completion(nil)
+        }.resume()
+    }
+    
+    func sellTreasure(treasureName: String, confirm: String, completion: @escaping (Result<Room, NetworkError>) -> Void) {
+        var request = URLRequest(url: constants.treasureSellURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
+        var bodyObject: [String: String] = [:]
+        if confirm == "yes" {
+            bodyObject = [
+                "name":"\(treasureName)",
+                "confirm":"yes"
+            ]
+        } else {
+            bodyObject = [
+                "name":"\(treasureName)"
+            ]
+        }
+        request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
+        
+        // Send Request
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(.failure(.badAuth))
+                return
+            }
+            
+            if let _ = error {
+                completion(.failure(.otherError))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.badData))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let room = try decoder.decode(Room.self, from: data)
+                self.parseCoordinates(room)
+                completion(.success(room))
+            } catch {
+                completion(.failure(.noDecode))
+            }
+        }.resume()
+    }
+    // MARK: TODO - Wear
+    
+//    func wear(itemName: String, completion: @escaping)
+    
+    
+    func examine(name: String, completion: @escaping(Result<Examination, NetworkError>) -> Void) {
+        var request = URLRequest(url: constants.examineURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.addValue("Token \(constants.apiKey)", forHTTPHeaderField: HTTPHeader.authorization.rawValue)
+        request.addValue("application/json", forHTTPHeaderField: HTTPHeader.contentType.rawValue)
+        let bodyObject: [String:String] = [
+            "name": name
+        ]
+        request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
+        
+        print(request)
+        print(bodyObject)
+        // Decode JSON while handling errors
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse,
+                response.statusCode == 401 {
+                completion(.failure(.badAuth))
+                return
+            }
+            
+            if let _ = error {
+                completion(.failure(.otherError))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.badData))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let examination = try decoder.decode(Examination.self, from: data)
+                completion(.success(examination))
+            } catch {
+                    completion(.failure(.noDecode))
+                }
         }.resume()
     }
     

@@ -17,6 +17,9 @@ class MainViewController: UIViewController {
                            title: "testTitle",
                            description: "testDescription",
                            coordinates: "(1,1)",
+                           elevation: 0,
+                           terrain: "NORMAL",
+                           players: [],
                            items: [],
                            exits: ["w","e"],
                            cooldown: 1.0,
@@ -154,8 +157,26 @@ class MainViewController: UIViewController {
     @IBAction func examineButtonPressed(_ sender: UIButton) {
         // Needs text
         if !isAbilitiesTextfieldEmpty() {
-            
+            guard let name = abilitiesTextField.text else { fatalError("No item/player name") }
             print("button pressed")
+            apiController.examine(name: name) { (result) in
+                if let exam = try? result.get() {
+                    print(exam)
+                    guard let error = exam.errors else { fatalError("This should never happen")}
+                    if error.count > 0 {
+                        // treat it as a room
+                        // Brady's API returns two diffrent types of JSON... sigh.. means i had to make all optional model
+                        // Absolutely awful code, need to REFACTOR later
+                        let room = Room(room_id: exam.room_id!, title: exam.title!, description: exam.description!, coordinates: exam.coordinates!, elevation: exam.elevation!, terrain: exam.terrain!, players: exam.players!, items: exam.items!, exits: exam.exits!, cooldown: exam.cooldown!, errors: exam.errors!, messages: exam.messages!)
+                        self.handleAPIResult(room)
+                    } else {
+                        // result is an examination
+                        print(exam)
+                    }
+                } else {
+                    print(result)
+                }
+            }
         }
     }
     @IBAction func proofButtonPressed(_ sender: UIButton) {

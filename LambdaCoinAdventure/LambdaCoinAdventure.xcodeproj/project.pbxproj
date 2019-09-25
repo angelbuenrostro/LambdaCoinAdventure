@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A24FBFE5233BF76100E8D157 /* Examination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24FBFE4233BF76100E8D157 /* Examination.swift */; };
 		A2705EE6233AC2CC003F5731 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2705EE5233AC2CC003F5731 /* Player.swift */; };
 		A2705EEE233B0A7B003F5731 /* GilroyRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A2705EEB233B0A7B003F5731 /* GilroyRegular.otf */; };
 		A2705EEF233B0A7B003F5731 /* GilroyBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A2705EEC233B0A7B003F5731 /* GilroyBold.otf */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A24FBFE4233BF76100E8D157 /* Examination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Examination.swift; sourceTree = "<group>"; };
 		A2705EE5233AC2CC003F5731 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		A2705EEB233B0A7B003F5731 /* GilroyRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GilroyRegular.otf; sourceTree = "<group>"; };
 		A2705EEC233B0A7B003F5731 /* GilroyBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GilroyBold.otf; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				A289C65123370D2800EC056C /* Balance.swift */,
 				A289C6592337AAAB00EC056C /* Coordinates.swift */,
 				A2705EE5233AC2CC003F5731 /* Player.swift */,
+				A24FBFE4233BF76100E8D157 /* Examination.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				A289C64E23370D1B00EC056C /* Room.swift in Sources */,
 				A289C63623370C9D00EC056C /* SceneDelegate.swift in Sources */,
 				A289C65023370D2200EC056C /* Proof.swift in Sources */,
+				A24FBFE5233BF76100E8D157 /* Examination.swift in Sources */,
 				A289C64823370CB200EC056C /* Constants.swift in Sources */,
 				A289C65223370D2800EC056C /* Balance.swift in Sources */,
 				A289C64B23370CEA00EC056C /* APIController.swift in Sources */,
