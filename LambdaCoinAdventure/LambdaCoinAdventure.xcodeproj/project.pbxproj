@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A24FBFE5233BF76100E8D157 /* Examination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24FBFE4233BF76100E8D157 /* Examination.swift */; };
+		A24FBFE7233C238400E8D157 /* RoomDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24FBFE6233C238400E8D157 /* RoomDict.swift */; };
 		A2705EE6233AC2CC003F5731 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2705EE5233AC2CC003F5731 /* Player.swift */; };
 		A2705EEE233B0A7B003F5731 /* GilroyRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A2705EEB233B0A7B003F5731 /* GilroyRegular.otf */; };
 		A2705EEF233B0A7B003F5731 /* GilroyBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A2705EEC233B0A7B003F5731 /* GilroyBold.otf */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		A24FBFE4233BF76100E8D157 /* Examination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Examination.swift; sourceTree = "<group>"; };
+		A24FBFE6233C238400E8D157 /* RoomDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDict.swift; sourceTree = "<group>"; };
 		A2705EE5233AC2CC003F5731 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		A2705EEB233B0A7B003F5731 /* GilroyRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GilroyRegular.otf; sourceTree = "<group>"; };
 		A2705EEC233B0A7B003F5731 /* GilroyBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GilroyBold.otf; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				A289C6592337AAAB00EC056C /* Coordinates.swift */,
 				A2705EE5233AC2CC003F5731 /* Player.swift */,
 				A24FBFE4233BF76100E8D157 /* Examination.swift */,
+				A24FBFE6233C238400E8D157 /* RoomDict.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				A289C6582337A74E00EC056C /* MapView.swift in Sources */,
 				A289C6552337A3B000EC056C /* MainViewController.swift in Sources */,
 				A289C65A2337AAAB00EC056C /* Coordinates.swift in Sources */,
+				A24FBFE7233C238400E8D157 /* RoomDict.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

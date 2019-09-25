@@ -159,7 +159,7 @@ class MapView: UIView {
     @objc func infoButtonPressed(sender: UIButton!) {
 //        print("Pressed Info Button")
         let frameKey = getFrameKey(rect: sender.frame)
-        if sender.backgroundColor != #colorLiteral(red: 0.5765730143, green: 0.8659184575, blue: 0.9998990893, alpha: 1) {
+        if sender.backgroundColor != #colorLiteral(red: 0.5765730143, green: 0.8659184575, blue: 0.9998990893, alpha: 0.7) {
             
             guard let nextID = idDict[frameKey] else { fatalError() }
             

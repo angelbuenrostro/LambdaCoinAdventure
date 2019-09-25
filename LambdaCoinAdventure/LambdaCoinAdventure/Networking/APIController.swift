@@ -275,8 +275,8 @@ class APIController {
             ]
             request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
             
-            print(request)
-            print(bodyObject)
+//            print(request)
+//            print(bodyObject)
             // Decode JSON while handling errors
             URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let response = response as? HTTPURLResponse,
@@ -422,8 +422,8 @@ class APIController {
         ]
         request.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
         
-        print(request)
-        print(bodyObject)
+//        print(request)
+//        print(bodyObject)
         // Decode JSON while handling errors
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let response = response as? HTTPURLResponse,

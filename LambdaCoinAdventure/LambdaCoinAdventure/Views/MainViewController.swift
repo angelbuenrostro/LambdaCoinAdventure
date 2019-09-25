@@ -11,6 +11,8 @@ import UIKit
 class MainViewController: UIViewController {
     
     // MARK: - Properties
+    var roomDict:[Int:Room] = [:]
+    
     
     let apiController = APIController()
     var currentRoom = Room(room_id: -1,
@@ -225,6 +227,8 @@ class MainViewController: UIViewController {
         
         setupUI()
         
+        checkRoomDictionary()
+        printAllRooms()
         
     }
     
@@ -481,7 +485,19 @@ class MainViewController: UIViewController {
             }
             
             if room.errors.isEmpty {
-                print("\(self.currentRoom)")
+                //MARK: - TODO
+                // If room isn't in Room Dictionary , add it then print the room to the console formatted to proper JSON
+                if !self.roomDict.keys.contains(self.currentRoom.room_id) {
+                    self.roomDict[self.currentRoom.room_id] = self.currentRoom
+                    print("\(self.currentRoom)")
+                    
+                    // Save Room Dict to UserDefaults
+                    let defaults = UserDefaults.standard
+                    let rooms = RoomDict(rooms: self.roomDict)
+                    defaults.set(try? JSONEncoder().encode(rooms), forKey: "roomDictionary")
+                }
+                
+                
             } else {
                 self.errorLabel.isHidden = false
                 self.errorLabel.text = "🚫🙅‍♂️💩 " + room.errors[0]
@@ -519,5 +535,29 @@ class MainViewController: UIViewController {
             return true
         }
         return false
+    }
+    
+    private func checkRoomDictionary() {
+        
+        let defaults = UserDefaults.standard
+        guard let roomDictData = defaults.object(forKey: "roomDictionary") as? Data else {
+            print("No room Dict data found")
+            return
+        }
+        
+        // Use Property List Decoder to convert Data into roomsDictionary
+        guard let roomsDictionary = try? JSONDecoder().decode(RoomDict.self, from: roomDictData) else {
+            print("Could not decode room Dict Data returned from UserDefaults")
+            return
+        }
+        
+        self.roomDict = roomsDictionary.rooms
+        print("Found saved rooms dictionary")
+    }
+    
+    private func printAllRooms() {
+        for room in self.roomDict.values {
+            print(room)
+        }
     }
 }
