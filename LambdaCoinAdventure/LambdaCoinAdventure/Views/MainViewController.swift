@@ -130,10 +130,16 @@ class MainViewController: UIViewController {
         // Borders
         mapView.layer.borderWidth = 2.0
         mapView.layer.borderColor = #colorLiteral(red: 0.06660000235, green: 0.06315000355, blue: 0.06259000301, alpha: 1)
-        startButton.layer.borderColor = UIColor.systemBlue.cgColor
-        startButton.layer.borderWidth = CGFloat(9.0)
+//        startButton.layer.borderColor = UIColor.black.cgColor
+//        startButton.layer.borderWidth = CGFloat(4.0)
         
         // Shadows
+        startButton.layer.shadowPath = UIBezierPath(roundedRect: self.startButton.bounds, cornerRadius: self.startButton.layer.cornerRadius).cgPath
+        startButton.layer.shadowColor = #colorLiteral(red: 0.3600000143, green: 0.7900000215, blue: 0.9599999785, alpha: 1)
+        startButton.layer.shadowRadius = 8
+        startButton.layer.shadowOpacity = 0.7
+        startButton.layer.masksToBounds = false
+        
         statusBGView.layer.shadowPath = UIBezierPath(roundedRect: self.statusBGView.bounds, cornerRadius: self.statusBGView.layer.cornerRadius).cgPath
         statusBGView.layer.shadowColor = UIColor.black.cgColor
         statusBGView.layer.shadowRadius = 12
@@ -149,7 +155,6 @@ class MainViewController: UIViewController {
         
         // Round StatusBG
         statusBGView.layer.cornerRadius = 10
-//        statusBGView.clipsToBounds = true
         
         // Round Map
         mapView.layer.opacity = 0.80
@@ -165,8 +170,6 @@ class MainViewController: UIViewController {
         rightButton.clipsToBounds = true
         downButton.layer.cornerRadius = buttonRadius
         downButton.clipsToBounds = true
-        startButton.layer.cornerRadius = 10.0
-        startButton.clipsToBounds = true
         timerLabel.layer.cornerRadius = 20.0
         timerLabel.clipsToBounds = true
         dashButton.layer.cornerRadius = buttonRadius
@@ -175,6 +178,7 @@ class MainViewController: UIViewController {
         flyButton.clipsToBounds = true
         predictionTextField.layer.cornerRadius = buttonRadius
         predictionTextField.clipsToBounds = true
+        startButton.layer.cornerRadius = 10.0
         
         // Ready Cooldown
         self.timerLabel.text = ""

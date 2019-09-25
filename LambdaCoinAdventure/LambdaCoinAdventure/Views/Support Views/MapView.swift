@@ -173,10 +173,10 @@ class MapView: UIView {
             if infoLabelMade == false {
                 let infoLabel = UILabel()
                 infoLabel.frame = CGRect(x: self.frame.maxX - 200, y: 840, width: 200, height: 50)
-                infoLabel.layer.opacity = 0.80
                 infoLabel.textAlignment = .center
-                infoLabel.backgroundColor = #colorLiteral(red: 0.9691255689, green: 0.9698591828, blue: 0.9692392945, alpha: 1)
-                infoLabel.layer.cornerRadius = 6.0
+                infoLabel.backgroundColor = #colorLiteral(red: 0, green: 0.4770143032, blue: 0.9955772758, alpha: 1)
+                infoLabel.layer.cornerRadius = 8.0
+                infoLabel.textColor = .white
                 infoLabel.clipsToBounds = true
                 
                 self.insertSubview(infoLabel, at: 0)

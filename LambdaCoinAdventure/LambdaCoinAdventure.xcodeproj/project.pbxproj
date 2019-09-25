@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		A2705EE6233AC2CC003F5731 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2705EE5233AC2CC003F5731 /* Player.swift */; };
+		A2705EEE233B0A7B003F5731 /* GilroyRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A2705EEB233B0A7B003F5731 /* GilroyRegular.otf */; };
+		A2705EEF233B0A7B003F5731 /* GilroyBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A2705EEC233B0A7B003F5731 /* GilroyBold.otf */; };
+		A2705EF0233B0A7B003F5731 /* GilroyHeavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = A2705EED233B0A7B003F5731 /* GilroyHeavy.otf */; };
 		A289C63423370C9D00EC056C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289C63323370C9D00EC056C /* AppDelegate.swift */; };
 		A289C63623370C9D00EC056C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289C63523370C9D00EC056C /* SceneDelegate.swift */; };
 		A289C63B23370C9D00EC056C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A289C63923370C9D00EC056C /* Main.storyboard */; };
@@ -25,6 +28,9 @@
 
 /* Begin PBXFileReference section */
 		A2705EE5233AC2CC003F5731 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		A2705EEB233B0A7B003F5731 /* GilroyRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GilroyRegular.otf; sourceTree = "<group>"; };
+		A2705EEC233B0A7B003F5731 /* GilroyBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GilroyBold.otf; sourceTree = "<group>"; };
+		A2705EED233B0A7B003F5731 /* GilroyHeavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GilroyHeavy.otf; sourceTree = "<group>"; };
 		A289C63023370C9D00EC056C /* LambdaCoinAdventure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LambdaCoinAdventure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A289C63323370C9D00EC056C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A289C63523370C9D00EC056C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +59,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A2705EF1233B0A8E003F5731 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A2705EEC233B0A7B003F5731 /* GilroyBold.otf */,
+				A2705EED233B0A7B003F5731 /* GilroyHeavy.otf */,
+				A2705EEB233B0A7B003F5731 /* GilroyRegular.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		A289C62723370C9D00EC056C = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +88,7 @@
 		A289C63223370C9D00EC056C /* LambdaCoinAdventure */ = {
 			isa = PBXGroup;
 			children = (
+				A2705EF1233B0A8E003F5731 /* Fonts */,
 				A289C63323370C9D00EC056C /* AppDelegate.swift */,
 				A289C63523370C9D00EC056C /* SceneDelegate.swift */,
 				A289C63C23370CA000EC056C /* Assets.xcassets */,
@@ -181,8 +198,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2705EEF233B0A7B003F5731 /* GilroyBold.otf in Resources */,
 				A289C64023370CA000EC056C /* LaunchScreen.storyboard in Resources */,
+				A2705EEE233B0A7B003F5731 /* GilroyRegular.otf in Resources */,
 				A289C63D23370CA000EC056C /* Assets.xcassets in Resources */,
+				A2705EF0233B0A7B003F5731 /* GilroyHeavy.otf in Resources */,
 				A289C63B23370C9D00EC056C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
