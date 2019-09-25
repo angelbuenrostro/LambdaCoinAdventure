@@ -107,7 +107,7 @@ class APIController {
     func dash(direction: String, roomsPrediction: String, completion: @escaping (Result<Room, NetworkError>) -> Void ) {
         // Get Num of Rooms Dashing from prediction string parsing
         let numRooms = (roomsPrediction.filter { $0 == "," }.count + 1)
-        print("Dashing! \(numRooms) body: \(roomsPrediction)")
+//        print("Dashing! \(numRooms) body: \(roomsPrediction)")
         
         // Make Request
         var request = URLRequest(url: constants.dashURL)
@@ -239,22 +239,22 @@ class APIController {
         
         // TODO: - Replace if else statements with Switch
         if room.title == "Shop"{
-            print("room is Shop")
+//            print("room is Shop")
             isShop = true
         } else if room.title == "Name Changer" {
-            print("room is Name Changer")
+//            print("room is Name Changer")
             isNameChanger = true
         } else if room.title == "Shrine" {
-            print("room is Shrine")
+//            print("room is Shrine")
             isShrine = true
         } else if room.title == "Transmogrifier" {
-            print("room is Transmogrifier")
+//            print("room is Transmogrifier")
             isTransmogrifier = true
         } else if room.title == "Mine" {
-            print("room is Mine")
+//            print("room is Mine")
             isMine = true
         } else if room.description.contains("elevated"){
-            print("room is elevated")
+//            print("room is elevated")
             isElevated = true
         }
         

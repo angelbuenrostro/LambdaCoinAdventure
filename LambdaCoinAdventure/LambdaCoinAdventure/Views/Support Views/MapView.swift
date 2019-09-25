@@ -21,11 +21,10 @@ class MapView: UIView {
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
-        print("Drawing Map")
+//        print("Drawing Map")
         // Drawing code
         
         // Get Context
-        //colorLiteral(red: 0.1311326623, green: 0.3781063557, blue: 0.6658913493, alpha: 1)
         let context = UIGraphicsGetCurrentContext()!
             
         // Check for apiController reference
@@ -33,7 +32,7 @@ class MapView: UIView {
         
         // Draw Points
         
-        print("Num in mapSet: \(apiController.mapSet.count)")
+//        print("Num in mapSet: \(apiController.mapSet.count)")
         for coordinate in apiController.mapSet {
             
             let point = convertCoordinates(coordinate: coordinate)
@@ -47,8 +46,6 @@ class MapView: UIView {
             // Draws Exit Markers to relevant cardinal direction
             if !coordinate.exits.isEmpty {
                 let exits = coordinate.exits
-                
-                //#colorLiteral(red: 0.8590026498, green: 0.9080110788, blue: 0.9488238692, alpha: 1)
                 let lineColor = UIColor.white.cgColor
                 context.setLineWidth(2)
                 context.setStrokeColor(lineColor)
@@ -89,7 +86,6 @@ class MapView: UIView {
             // Also stores currentCoordinate ID into a dictionary set so a button press on coordinate position can return roomID when needed
             guard let currentCoordinate = apiController.currentCoordinate else { return }
             if coordinate == currentCoordinate {
-                //UIColor(red: 0.40, green: 0.22, blue: 0.94, alpha: 1.00)
                 context.setFillColor(UIColor.white.cgColor)
                 context.fillEllipse(in: pointRect)
             }
@@ -161,15 +157,16 @@ class MapView: UIView {
     }
     
     @objc func infoButtonPressed(sender: UIButton!) {
-        print("Pressed Info Button")
+//        print("Pressed Info Button")
         let frameKey = getFrameKey(rect: sender.frame)
         if sender.backgroundColor != #colorLiteral(red: 0.5765730143, green: 0.8659184575, blue: 0.9998990893, alpha: 1) {
             
             guard let nextID = idDict[frameKey] else { fatalError() }
             
-            print(nextID)
+//            print(nextID)
             
             // Draw UILabel with RoomID info on screen
+            // Bool check prevents duplicaate labels
             if infoLabelMade == false {
                 let infoLabel = UILabel()
                 infoLabel.frame = CGRect(x: self.frame.maxX - 200, y: 840, width: 200, height: 50)
@@ -178,6 +175,8 @@ class MapView: UIView {
                 infoLabel.layer.cornerRadius = 8.0
                 infoLabel.textColor = .white
                 infoLabel.clipsToBounds = true
+                infoLabel.adjustsFontSizeToFitWidth = true
+                infoLabel.minimumScaleFactor = 0.5
                 
                 self.insertSubview(infoLabel, at: 0)
                 infoLabelMade = true
@@ -189,10 +188,8 @@ class MapView: UIView {
                 infoLabelRef = infoLabel
             } else {
                 guard var idText = infoLabelRef!.text else { fatalError() }
-                print(idText.count)
-                if idText.count > 12 {
+                if idText.count > 18 {
                     idText = String(idText.dropFirst(3))
-                    print(idText)
                 }
                 
                 infoLabelRef!.text = idText + " " + (String(nextID))

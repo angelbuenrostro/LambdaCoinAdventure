@@ -127,21 +127,21 @@
                                     <action selector="startButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gOo-Hh-Lb8"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CD" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="Y9T-m8-Ute">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13" textAlignment="center" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="Y9T-m8-Ute">
                                 <rect key="frame" x="1246" y="902" width="60" height="60"/>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="7DZ-p8-gck"/>
                                     <constraint firstAttribute="width" constant="60" id="Dqi-sb-75e"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="27"/>
+                                <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy" pointSize="36"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="kCZ-1S-drp">
                                 <rect key="frame" x="1186" y="809" width="180" height="34"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="GUESS?" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="19" translatesAutoresizingMaskIntoConstraints="NO" id="IBx-9f-sXT">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="GUESS?" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="19" background="pencil.and.ellipsis.rectangle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="IBx-9f-sXT">
                                         <rect key="frame" x="8" y="0.0" width="164" height="34"/>
                                         <color key="backgroundColor" red="0.1450980392" green="0.14901960780000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" red="0.450602" green="0.54266000000000003" blue="0.90120500000000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -353,12 +353,12 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cto-Ak-Qlf">
                                 <rect key="frame" x="1194" y="627" width="164" height="174"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iru-Ex-MS4">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="11" background="pencil.and.ellipsis.rectangle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="iru-Ex-MS4">
                                         <rect key="frame" x="0.0" y="0.0" width="164" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="T7B-dj-WYr"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Gilroy-Regular" family="Gilroy" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Y7L-eg-ShE">
@@ -383,7 +383,6 @@
                                                         <state key="normal" title="🥋"/>
                                                         <connections>
                                                             <action selector="wearItemButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="edr-BU-HDK"/>
-                                                            <action selector="wearItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PNh-4W-zD3"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9X-NL-MEr">
@@ -576,7 +575,6 @@
                         <outlet property="titleLabel" destination="GX4-qM-4jM" id="zNi-Yo-D68"/>
                         <outlet property="transmogrifyButton" destination="naZ-Eo-6oi" id="cSq-dw-9Wd"/>
                         <outlet property="treasureButton" destination="OJL-RH-rWy" id="85D-Y2-Wc7"/>
-                        <outlet property="treasureGrab" destination="OJL-RH-rWy" id="PZy-cE-JIT"/>
                         <outlet property="upButton" destination="9RC-V2-kwh" id="jI0-HJ-oUS"/>
                         <outlet property="wearItemButton" destination="bkJ-L7-36P" id="4B6-E6-im5"/>
                     </connections>
@@ -591,5 +589,6 @@
         <image name="ic_arrow_downward_48px" width="48" height="48"/>
         <image name="ic_arrow_forward_48px" width="48" height="48"/>
         <image name="ic_arrow_upward_48px" width="48" height="48"/>
+        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="64" height="40"/>
     </resources>
 </document>

@@ -125,8 +125,8 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func treasureButtonPressed(_ sender: UIButton) {
-        // Needs text
         if !isAbilitiesTextfieldEmpty(){
+            print("button pressed")
             
             
         }
@@ -134,43 +134,51 @@ class MainViewController: UIViewController {
     @IBAction func sellTreasureButtonPressed(_ sender: UIButton) {
         // Needs text
         if !isAbilitiesTextfieldEmpty() {
+            print("button pressed")
             
         }
     }
     @IBAction func checkBalanceButtonPressed(_ sender: UIButton) {
-        
+        print("button pressed")
     }
     @IBAction func wearItemButtonPressed(_ sender: UIButton) {
         // Needs text
         if !isAbilitiesTextfieldEmpty() {
+            print("button pressed")
             
         }
     }
     @IBAction func prayButtonPressed(_ sender: UIButton) {
+        print("button pressed")
     }
     @IBAction func examineButtonPressed(_ sender: UIButton) {
         // Needs text
         if !isAbilitiesTextfieldEmpty() {
             
+            print("button pressed")
         }
     }
     @IBAction func proofButtonPressed(_ sender: UIButton) {
+        print("button pressed")
     }
     @IBAction func mineButtonPressed(_ sender: UIButton) {
         // Needs text
         if !isAbilitiesTextfieldEmpty() {
+            print("button pressed")
             
         }
     }
     @IBAction func transmogrifyButtonPressed(_ sender: UIButton) {
         // Needs text
         if !isAbilitiesTextfieldEmpty() {
+            print("button pressed")
             
         }
     }
     @IBAction func nameChangeButtonPressed(_ sender: UIButton) {
         // Needs text
         if !isAbilitiesTextfieldEmpty() {
+            print("button pressed")
             
         }
     }
@@ -178,10 +186,11 @@ class MainViewController: UIViewController {
         // Needs text
         if !isAbilitiesTextfieldEmpty() {
             
+            print("button pressed")
         }
     }
     @IBAction func receiveFromGhostButtonPressed(_ sender: UIButton) {
-        
+        print("button pressed")
     }
     
     
@@ -299,9 +308,11 @@ class MainViewController: UIViewController {
         errorLabel.isHidden = true
     }
     
-    func updateUI() {
+    private func updateUI() {
         
+        // Prevents keyboard from appearing
         self.predictionTextField.inputView = UIView()
+        self.abilitiesTextField.inputView = UIView()
         
         // Formats array of string messages from Room Object into single string
         var msgString = ""
@@ -325,7 +336,7 @@ class MainViewController: UIViewController {
     
     
     private func movePlayer(_ direction: String) {
-        print(direction)
+//        print(direction)
         var prediction: String = ""
         if predictionTextField.text != nil {
             prediction = predictionTextField.text!
@@ -355,9 +366,6 @@ class MainViewController: UIViewController {
         self.isPlaying = true
         apiController.initialize { (result) in
             if let room = try? result.get() {
-                
-                print("Room: \(room)")
-                print(room.errors.isEmpty)
                 self.handleAPIResult(room)
             }
         }
@@ -376,7 +384,7 @@ class MainViewController: UIViewController {
         isTimerRunning = true
     }
     
-    func validateMoveAbility(){
+    private func validateMoveAbility(){
         if isTimerRunning {
             self.startButton.layer.opacity = 0.7
             self.startButton.clipsToBounds = true
@@ -429,12 +437,12 @@ class MainViewController: UIViewController {
             self.validateMoveAbility()
             
             if room.errors.isEmpty {
-                print("Curent Room: \(self.currentRoom)")
+                print("\(self.currentRoom)")
             } else {
                 self.errorLabel.isHidden = false
                 self.errorLabel.text = "🚫🙅‍♂️💩 " + room.errors[0]
-                print("Room: \(room)")
-                print("Room Error: \(room.errors)")
+//                print("Room: \(room)")
+//                print("Room Error: \(room.errors)")
             }
         }
         
@@ -466,8 +474,8 @@ class MainViewController: UIViewController {
     
     private func isAbilitiesTextfieldEmpty() -> Bool {
         if self.abilitiesTextField.text == "" || self.abilitiesTextField.text == nil {
-            return false
+            return true
         }
-        return true
+        return false
     }
 }
