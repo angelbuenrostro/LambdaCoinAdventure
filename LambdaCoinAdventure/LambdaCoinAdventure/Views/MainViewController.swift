@@ -114,6 +114,10 @@ class MainViewController: UIViewController {
         
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     
     
     // MARK: - Private Functions
@@ -130,8 +134,8 @@ class MainViewController: UIViewController {
         // Borders
         mapView.layer.borderWidth = 2.0
         mapView.layer.borderColor = #colorLiteral(red: 0.06660000235, green: 0.06315000355, blue: 0.06259000301, alpha: 1)
-//        startButton.layer.borderColor = UIColor.black.cgColor
-//        startButton.layer.borderWidth = CGFloat(4.0)
+        startButton.layer.borderColor = #colorLiteral(red: 0.5765699744, green: 0.8659200072, blue: 0.9998999834, alpha: 1)
+        startButton.layer.borderWidth = CGFloat(1.0)
         
         // Shadows
         startButton.layer.shadowPath = UIBezierPath(roundedRect: self.startButton.bounds, cornerRadius: self.startButton.layer.cornerRadius).cgPath
@@ -211,12 +215,12 @@ class MainViewController: UIViewController {
             }
             msgString.removeLast(2)
         } else {
-            msgString = "No messages"
+            msgString = "..."
         }
         
         // Set Labels
         self.messagesLabel.text = msgString
-        self.titleLabel.text = currentRoom.title
+        self.titleLabel.text = currentRoom.title.uppercased()
         self.idLabel.text = ("ID: \(String(currentRoom.room_id))")
         self.descriptionLabel.text = currentRoom.description
         self.seconds = currentRoom.cooldown
@@ -273,23 +277,33 @@ class MainViewController: UIViewController {
     
     func validateMoveAbility(){
         if isTimerRunning {
+            self.startButton.layer.opacity = 0.7
+            self.startButton.clipsToBounds = true
+            self.startButton.layer.borderWidth = 0
+            startButton.isEnabled = false
             upButton.isEnabled = false
             downButton.isEnabled = false
             rightButton.isEnabled = false
             leftButton.isEnabled = false
-            startButton.isEnabled = false
         } else {
+            self.startButton.layer.opacity = 1
+            self.startButton.layer.borderWidth = 1.0
+            self.startButton.clipsToBounds = false
+            startButton.isEnabled = true
             upButton.isEnabled = true
             downButton.isEnabled = true
             rightButton.isEnabled = true
             leftButton.isEnabled = true
-            startButton.isEnabled = true
         }
     }
     
     @objc func updateTimer() {
         timerLabel.text = "\(Int(seconds))" // May cause issues if automating traversal as casting to int will round the time interval
-        timerLabel.textColor = UIColor.black
+        timerLabel.textColor = UIColor.white
+        guard let customFont = UIFont(name: "Gilroy-Bold", size: 28) else {
+            fatalError("failed to load custom font")
+        }
+        timerLabel.font = customFont
         if seconds <= 0.0 {
             timerLabel.text = ""
             timer.invalidate()

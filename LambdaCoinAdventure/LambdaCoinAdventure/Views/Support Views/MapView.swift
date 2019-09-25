@@ -182,7 +182,10 @@ class MapView: UIView {
                 self.insertSubview(infoLabel, at: 0)
                 infoLabelMade = true
                 infoLabel.text = String(nextID)
-                infoLabel.font = UIFont.boldSystemFont(ofSize: 18)
+                guard let customFont = UIFont(name: "Gilroy-Bold", size: UIFont.labelFontSize) else {
+                    fatalError("failed to load custom font")
+                }
+                infoLabel.font = customFont
                 infoLabelRef = infoLabel
             } else {
                 guard var idText = infoLabelRef!.text else { fatalError() }

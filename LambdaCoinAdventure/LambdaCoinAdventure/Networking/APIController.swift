@@ -162,7 +162,7 @@ class APIController {
         
         var bodyObject: [String: String]
         // JSON Body
-        if roomPrediction != nil && roomPrediction != "" {
+        if roomPrediction != nil && roomPrediction != "GUESS?" && roomPrediction != "" {
             guard let roomID = roomPrediction else { print("Nil Room Prediction")
                 return
             }
