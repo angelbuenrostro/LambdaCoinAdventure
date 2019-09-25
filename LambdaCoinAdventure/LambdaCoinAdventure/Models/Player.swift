@@ -16,7 +16,7 @@ struct Player: Decodable {
     let strength: Int
     let speed: Int
     let gold: Int
-    let inventory: [String] // Need to confirm type with Brady
+    let inventory: [String]
     let status: [String]
     let errors: [String]
     let messages: [String]

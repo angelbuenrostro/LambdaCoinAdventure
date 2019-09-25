@@ -22,6 +22,7 @@ class MainViewController: UIViewController {
                            cooldown: 1.0,
                            errors: [],
                            messages: ["testMessage"])
+    var player: Player?
     var timer = Timer()
     var seconds = 0.0
     var isTimerRunning = false
@@ -32,13 +33,21 @@ class MainViewController: UIViewController {
     var isFlying = false
     var isPlaying = false
     // MARK: - Outlets
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var messagesLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     
+    // Status Labels
+    @IBOutlet weak var statusBGView: UIView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var goldLabel: UILabel!
+    @IBOutlet weak var strengthLabel: UILabel!
+    @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var encumbranceLabel: UILabel!
+    
+    // Controls
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
@@ -88,10 +97,10 @@ class MainViewController: UIViewController {
     @IBAction func startButtonPressed(_ sender: UIButton) {
         print("Start")
         if isPlaying == false {
-            startButton.setTitle("Status", for: .normal)
+            startButton.setTitle("STATUS", for: .normal)
             initPlayer()
         } else {
-            showStatus()
+            updateStatus()
         }
     }
     
@@ -116,10 +125,35 @@ class MainViewController: UIViewController {
         self.view.backgroundColor = #colorLiteral(red: 0.1483936906, green: 0.1771853268, blue: 0.2190909386, alpha: 1)
         self.mapView.backgroundColor = #colorLiteral(red: 0.1394269764, green: 0.1392630935, blue: 0.1629098058, alpha: 1)
         self.predictionTextField.backgroundColor = #colorLiteral(red: 0.1394269764, green: 0.1392630935, blue: 0.1629098058, alpha: 1)
+        startButton.backgroundColor = UIColor.systemBlue
+        
+        // Borders
+        mapView.layer.borderWidth = 2.0
+        mapView.layer.borderColor = #colorLiteral(red: 0.06660000235, green: 0.06315000355, blue: 0.06259000301, alpha: 1)
+        startButton.layer.borderColor = UIColor.systemBlue.cgColor
+        startButton.layer.borderWidth = CGFloat(9.0)
+        
+        // Shadows
+        statusBGView.layer.shadowPath = UIBezierPath(roundedRect: self.statusBGView.bounds, cornerRadius: self.statusBGView.layer.cornerRadius).cgPath
+        statusBGView.layer.shadowColor = UIColor.black.cgColor
+        statusBGView.layer.shadowRadius = 12
+        statusBGView.layer.shadowOpacity = 0.8
+        statusBGView.layer.masksToBounds = false
+        
+        mapView.layer.shadowPath = UIBezierPath(roundedRect: self.mapView.bounds, cornerRadius: self.mapView.layer.cornerRadius).cgPath
+        mapView.layer.shadowColor = UIColor.black.cgColor
+        mapView.layer.shadowRadius = 8
+        mapView.layer.shadowOpacity = 0.8
+        mapView.layer.masksToBounds = false
+        
+        
+        // Round StatusBG
+        statusBGView.layer.cornerRadius = 10
+//        statusBGView.clipsToBounds = true
+        
         // Round Map
         mapView.layer.opacity = 0.80
         mapView.layer.cornerRadius = 16.0
-        mapView.clipsToBounds = true
         
         // Round Buttons
         let buttonRadius = CGFloat(6.0)
@@ -141,11 +175,6 @@ class MainViewController: UIViewController {
         flyButton.clipsToBounds = true
         predictionTextField.layer.cornerRadius = buttonRadius
         predictionTextField.clipsToBounds = true
-        
-        
-        // Border
-        startButton.layer.borderColor = #colorLiteral(red: 0.131129995, green: 0.3781099916, blue: 0.6658899784, alpha: 1)
-        startButton.layer.borderWidth = CGFloat(2.0)
         
         // Ready Cooldown
         self.timerLabel.text = ""
@@ -189,16 +218,6 @@ class MainViewController: UIViewController {
         self.seconds = currentRoom.cooldown
     }
     
-    private func showStatus() {
-        apiController.getStatus { (result) in
-            if let player = try? result.get() {
-                print(player)
-            } else {
-                print("No player info?")
-                print(result)
-            }
-        }
-    }
     
     private func movePlayer(_ direction: String) {
         print(direction)
@@ -235,8 +254,15 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func runTimer() {
-        self.seconds = self.currentRoom.cooldown
+    private func runTimer(_ type: String) {
+        
+        if type == "status"{
+            guard let player = self.player else { fatalError() }
+            self.seconds = player.cooldown
+        } else {
+            self.seconds = self.currentRoom.cooldown
+        }
+        
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
         isTimerRunning = true
     }
@@ -247,11 +273,13 @@ class MainViewController: UIViewController {
             downButton.isEnabled = false
             rightButton.isEnabled = false
             leftButton.isEnabled = false
+            startButton.isEnabled = false
         } else {
             upButton.isEnabled = true
             downButton.isEnabled = true
             rightButton.isEnabled = true
             leftButton.isEnabled = true
+            startButton.isEnabled = true
         }
     }
     
@@ -278,7 +306,7 @@ class MainViewController: UIViewController {
             self.mapView.apiController = self.apiController
             self.mapView.setNeedsDisplay()
             // Run Cooldown Timer
-            self.runTimer()
+            self.runTimer("move")
             self.validateMoveAbility()
             
             if room.errors.isEmpty {
@@ -291,6 +319,29 @@ class MainViewController: UIViewController {
             }
         }
         
+    }
+    
+    private func updateStatus() {
+        apiController.getStatus { (result) in
+            if let player = try? result.get() {
+                DispatchQueue.main.async {
+                    self.player = player
+                    // Run Cooldown Timer
+                    self.runTimer("status")
+                    self.validateMoveAbility()
+                    
+                    print(player)
+                    self.nameLabel.text = player.name
+                    self.goldLabel.text = String(player.gold)
+                    self.strengthLabel.text = String(player.strength)
+                    self.speedLabel.text = String(player.speed)
+                    self.encumbranceLabel.text = String(player.encumbrance)
+                }
+            } else {
+                print("No player info?")
+                print(result)
+            }
+        }
     }
 
 }
