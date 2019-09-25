@@ -31,6 +31,7 @@ class MainViewController: UIViewController {
     var isTimerRunning = false
     
     let errorLabel: UILabel = UILabel()
+    let itemsLabel: UILabel = UILabel()
     
     var isDashing = false
     var isFlying = false
@@ -327,6 +328,20 @@ class MainViewController: UIViewController {
         errorLabel.text = "🚫"
         errorLabel.font = UIFont.boldSystemFont(ofSize: 18)
         errorLabel.isHidden = true
+        
+        // Make Item Label
+        itemsLabel.frame = CGRect(x: mapView.frame.midX - 400, y: mapView.frame.minY + 8, width: 800, height: 40)
+        itemsLabel.layer.opacity = 1
+        itemsLabel.textAlignment = .center
+        itemsLabel.backgroundColor = .clear
+        itemsLabel.layer.cornerRadius = 6.0
+        itemsLabel.clipsToBounds = true
+        
+        self.view.addSubview(itemsLabel)
+        itemsLabel.textColor = #colorLiteral(red: 0.9486700892, green: 0.9493889213, blue: 0.9487814307, alpha: 1)
+        itemsLabel.text = ""
+        itemsLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        itemsLabel.isHidden = false
     }
     
     private func updateUI() {
@@ -457,13 +472,19 @@ class MainViewController: UIViewController {
             self.runTimer("move")
             self.validateMoveAbility()
             
+            if !room.items.isEmpty {
+                var itemList = ""
+                for item in room.items {
+                    itemList += ", \(item)"
+                }
+                self.itemsLabel.text = String(itemList.dropFirst(2))
+            }
+            
             if room.errors.isEmpty {
                 print("\(self.currentRoom)")
             } else {
                 self.errorLabel.isHidden = false
                 self.errorLabel.text = "🚫🙅‍♂️💩 " + room.errors[0]
-//                print("Room: \(room)")
-//                print("Room Error: \(room.errors)")
             }
         }
         

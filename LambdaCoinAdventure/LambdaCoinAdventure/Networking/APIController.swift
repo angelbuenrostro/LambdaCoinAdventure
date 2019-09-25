@@ -183,7 +183,7 @@ class APIController {
             }
         }.resume()
     }
-    // MARK: TODO
+    
     
     func nameChange(name: String, completion: @escaping (Error?) -> ()) {
         var request = URLRequest(url: constants.nameChangeURL)
@@ -592,7 +592,7 @@ class APIController {
         } else if room.title == "Name Changer" {
 //            print("room is Name Changer")
             isNameChanger = true
-        } else if room.title == "Shrine" {
+        } else if room.description.contains("prayer") || room.description.contains("pray") {
 //            print("room is Shrine")
             isShrine = true
         } else if room.title == "Transmogrifier" {
@@ -601,7 +601,7 @@ class APIController {
         } else if room.title == "Mine" {
 //            print("room is Mine")
             isMine = true
-        } else if room.description.contains("elevated"){
+        } else if room.elevation > 0{
 //            print("room is elevated")
             isElevated = true
         }
