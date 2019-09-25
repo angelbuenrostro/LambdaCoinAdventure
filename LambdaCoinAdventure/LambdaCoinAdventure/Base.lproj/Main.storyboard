@@ -372,24 +372,37 @@
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="👑"/>
+                                                        <connections>
+                                                            <action selector="treasureButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B7H-pc-qPL"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkJ-L7-36P">
                                                         <rect key="frame" x="0.0" y="33.5" width="53.5" height="31.5"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                                        <state key="normal" title="🎩"/>
+                                                        <state key="normal" title="🥋"/>
+                                                        <connections>
+                                                            <action selector="wearItemButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="edr-BU-HDK"/>
+                                                            <action selector="wearItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PNh-4W-zD3"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9X-NL-MEr">
                                                         <rect key="frame" x="0.0" y="67" width="53.5" height="31.5"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="🕵️‍♂️"/>
+                                                        <connections>
+                                                            <action selector="proofButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="v58-iz-MR7"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qd8-to-km1">
                                                         <rect key="frame" x="0.0" y="100.5" width="53.5" height="31.5"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="✍️"/>
+                                                        <connections>
+                                                            <action selector="nameChangeButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8Q7-xF-YFZ"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -401,24 +414,36 @@
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="💵"/>
+                                                        <connections>
+                                                            <action selector="sellTreasureButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mQ3-qT-4Rh"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L95-4c-xs8">
                                                         <rect key="frame" x="0.0" y="33.5" width="53" height="31.5"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="🙏"/>
+                                                        <connections>
+                                                            <action selector="prayButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZSy-a4-LoQ"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7i6-ix-Vlf">
                                                         <rect key="frame" x="0.0" y="67" width="53" height="31.5"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="⛏"/>
+                                                        <connections>
+                                                            <action selector="mineButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dLC-TJ-fbi"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTV-TC-yO3">
                                                         <rect key="frame" x="0.0" y="100.5" width="53" height="31.5"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="👻"/>
+                                                        <connections>
+                                                            <action selector="ghostCourierButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8ot-Ab-IOW"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -430,24 +455,36 @@
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="🏦"/>
+                                                        <connections>
+                                                            <action selector="checkBalanceButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="a5v-NU-Q9v"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UBa-Wh-K3v">
                                                         <rect key="frame" x="0.0" y="33.5" width="53.5" height="31.5"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="🔎"/>
+                                                        <connections>
+                                                            <action selector="examineButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qsb-2b-ox5"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="naZ-Eo-6oi">
                                                         <rect key="frame" x="0.0" y="67" width="53.5" height="31.5"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="🧙‍♂️"/>
+                                                        <connections>
+                                                            <action selector="transmogrifyButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DjB-cm-INn"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tjK-bb-r5b">
                                                         <rect key="frame" x="0.0" y="100.5" width="53.5" height="31.5"/>
                                                         <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                                         <state key="normal" title="🎁"/>
+                                                        <connections>
+                                                            <action selector="receiveFromGhostButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fzC-eE-ZgI"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -506,11 +543,15 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="abilitiesTextField" destination="iru-Ex-MS4" id="h9A-LJ-Hib"/>
+                        <outlet property="checkBalanceButton" destination="rOG-0i-2MS" id="2Ll-YP-Alu"/>
                         <outlet property="dashButton" destination="DDT-sF-Xcu" id="zY2-vr-4m4"/>
                         <outlet property="descriptionLabel" destination="89s-lI-6sZ" id="UJW-Jh-8g2"/>
                         <outlet property="downButton" destination="Zyr-lZ-fve" id="IWd-xH-cAd"/>
                         <outlet property="encumbranceLabel" destination="Mh8-dW-Qxe" id="Vlw-tf-hBs"/>
+                        <outlet property="examineButton" destination="UBa-Wh-K3v" id="GNF-o7-Dbb"/>
                         <outlet property="flyButton" destination="Ekl-05-MOQ" id="1Hv-X8-xkS"/>
+                        <outlet property="ghostCourierButton" destination="UTV-TC-yO3" id="XhQ-uh-IJH"/>
                         <outlet property="goldLabel" destination="g2P-Cc-REv" id="W9j-XC-QaV"/>
                         <outlet property="idLabel" destination="41M-La-C1K" id="7t6-BF-se2"/>
                         <outlet property="inventoryBGView" destination="bLC-Pr-YHG" id="rhn-KM-2iM"/>
@@ -518,16 +559,26 @@
                         <outlet property="leftButton" destination="6LG-3t-H41" id="gfe-Dr-xSD"/>
                         <outlet property="mapView" destination="oC4-ke-fkY" id="Q2M-KC-Gjo"/>
                         <outlet property="messagesLabel" destination="uVF-oX-dNR" id="Avz-pt-Wxe"/>
+                        <outlet property="mineButton" destination="7i6-ix-Vlf" id="APf-fa-OZs"/>
+                        <outlet property="nameChangeButton" destination="qd8-to-km1" id="v2f-Hh-ORL"/>
                         <outlet property="nameLabel" destination="d0z-I1-FKF" id="fqw-jN-OLo"/>
+                        <outlet property="prayButton" destination="L95-4c-xs8" id="9zw-Jr-7p9"/>
                         <outlet property="predictionTextField" destination="IBx-9f-sXT" id="WuS-Ll-D8N"/>
+                        <outlet property="proofButton" destination="X9X-NL-MEr" id="BPF-Ss-pAT"/>
+                        <outlet property="receiveFromGhostButton" destination="tjK-bb-r5b" id="vT4-ZS-kTy"/>
                         <outlet property="rightButton" destination="ise-CY-Ae3" id="yuV-KX-pWZ"/>
+                        <outlet property="sellTreasureButton" destination="EVu-El-jyy" id="Ecz-Gb-m2u"/>
                         <outlet property="speedLabel" destination="hcY-5c-MLJ" id="Tex-yf-DJm"/>
                         <outlet property="startButton" destination="Xwg-NU-t4P" id="nyw-cv-fuE"/>
                         <outlet property="statusBGView" destination="rSY-XZ-NYD" id="Omh-Vy-MuN"/>
                         <outlet property="strengthLabel" destination="7YA-Lb-UiG" id="SL8-Kf-GBb"/>
                         <outlet property="timerLabel" destination="Y9T-m8-Ute" id="95y-5s-9gU"/>
                         <outlet property="titleLabel" destination="GX4-qM-4jM" id="zNi-Yo-D68"/>
+                        <outlet property="transmogrifyButton" destination="naZ-Eo-6oi" id="cSq-dw-9Wd"/>
+                        <outlet property="treasureButton" destination="OJL-RH-rWy" id="85D-Y2-Wc7"/>
+                        <outlet property="treasureGrab" destination="OJL-RH-rWy" id="PZy-cE-JIT"/>
                         <outlet property="upButton" destination="9RC-V2-kwh" id="jI0-HJ-oUS"/>
+                        <outlet property="wearItemButton" destination="bkJ-L7-36P" id="4B6-E6-im5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

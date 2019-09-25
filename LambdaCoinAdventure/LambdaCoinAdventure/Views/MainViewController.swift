@@ -49,7 +49,25 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var inventoryBGView: UIView!
     @IBOutlet weak var inventoryOutlet: UILabel!
-    // Controls
+    
+    // Special Abilities Controls
+    @IBOutlet weak var abilitiesTextField: UITextField!
+    
+    @IBOutlet weak var treasureButton: UIButton!
+    @IBOutlet weak var sellTreasureButton: UIButton!
+    @IBOutlet weak var checkBalanceButton: UIButton!
+    @IBOutlet weak var wearItemButton: UIButton!
+    @IBOutlet weak var prayButton: UIButton!
+    @IBOutlet weak var examineButton: UIButton!
+    @IBOutlet weak var proofButton: UIButton!
+    @IBOutlet weak var mineButton: UIButton!
+    @IBOutlet weak var transmogrifyButton: UIButton!
+    @IBOutlet weak var nameChangeButton: UIButton!
+    @IBOutlet weak var ghostCourierButton: UIButton!
+    @IBOutlet weak var receiveFromGhostButton: UIButton!
+    
+    
+    // Move Controls
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
@@ -105,6 +123,69 @@ class MainViewController: UIViewController {
             updateStatus()
         }
     }
+    
+    @IBAction func treasureButtonPressed(_ sender: UIButton) {
+        // Needs text
+        if !isAbilitiesTextfieldEmpty(){
+            
+            
+        }
+    }
+    @IBAction func sellTreasureButtonPressed(_ sender: UIButton) {
+        // Needs text
+        if !isAbilitiesTextfieldEmpty() {
+            
+        }
+    }
+    @IBAction func checkBalanceButtonPressed(_ sender: UIButton) {
+        
+    }
+    @IBAction func wearItemButtonPressed(_ sender: UIButton) {
+        // Needs text
+        if !isAbilitiesTextfieldEmpty() {
+            
+        }
+    }
+    @IBAction func prayButtonPressed(_ sender: UIButton) {
+    }
+    @IBAction func examineButtonPressed(_ sender: UIButton) {
+        // Needs text
+        if !isAbilitiesTextfieldEmpty() {
+            
+        }
+    }
+    @IBAction func proofButtonPressed(_ sender: UIButton) {
+    }
+    @IBAction func mineButtonPressed(_ sender: UIButton) {
+        // Needs text
+        if !isAbilitiesTextfieldEmpty() {
+            
+        }
+    }
+    @IBAction func transmogrifyButtonPressed(_ sender: UIButton) {
+        // Needs text
+        if !isAbilitiesTextfieldEmpty() {
+            
+        }
+    }
+    @IBAction func nameChangeButtonPressed(_ sender: UIButton) {
+        // Needs text
+        if !isAbilitiesTextfieldEmpty() {
+            
+        }
+    }
+    @IBAction func ghostCourierButtonPressed(_ sender: UIButton) {
+        // Needs text
+        if !isAbilitiesTextfieldEmpty() {
+            
+        }
+    }
+    @IBAction func receiveFromGhostButtonPressed(_ sender: UIButton) {
+        
+    }
+    
+    
+    
     
     // MARK: - View Life Cycle
     
@@ -381,5 +462,12 @@ class MainViewController: UIViewController {
             }
         }
     }
-
+    
+    
+    private func isAbilitiesTextfieldEmpty() -> Bool {
+        if self.abilitiesTextField.text == "" || self.abilitiesTextField.text == nil {
+            return false
+        }
+        return true
+    }
 }
