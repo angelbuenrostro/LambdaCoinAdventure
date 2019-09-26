@@ -35,13 +35,15 @@ class MapView: UIView {
 //        print("Num in mapSet: \(apiController.mapSet.count)")
         for coordinate in apiController.mapSet {
             
+            print("Inside drawing of Map: \(coordinate)")
+            
             let point = convertCoordinates(coordinate: coordinate)
             // Draws an ellipse exactly around the origin point
             let pointRect = CGRect(origin: CGPoint(x: point.x - (pointSize.width/2),
                                                    y: point.y + (pointSize.height/2)),
                                                                     size: pointSize)
             
-            addButton(on: pointRect)
+            addButton(on: pointRect, coordinate: coordinate)
             
             // Draws Exit Markers to relevant cardinal direction
             if !coordinate.exits.isEmpty {
@@ -137,18 +139,18 @@ class MapView: UIView {
         context.drawPath(using: .stroke)
     }
     
-    func addButton(on pointRect: CGRect){
+    func addButton(on pointRect: CGRect, coordinate: Coordinates){
         
         let biggerRect = CGRect(x: pointRect.minX - 3, y: pointRect.minY - 3, width: pointRect.width + 6, height: pointRect.height + 6)
         // Check Dictionary set of buttons, if does not exist at MinXMinY Dictionary then add new button, else do nothing.
         
         // Create dictionary
         let frameKey = getFrameKey(rect: biggerRect)
-        guard let apiController = apiController else { fatalError() }
         if idDict.keys.contains(frameKey) {
             return
         } else {
-            idDict[frameKey] = apiController.currentCoordinate!.id
+            //MARK: - TODO
+            idDict[frameKey] = coordinate.id
             let infoButton = UIButton(frame: biggerRect)
             infoButton.backgroundColor = UIColor.clear
             infoButton.addTarget(self, action: #selector(infoButtonPressed(sender:)), for: .touchUpInside)
@@ -169,7 +171,7 @@ class MapView: UIView {
             // Bool check prevents duplicaate labels
             if infoLabelMade == false {
                 let infoLabel = UILabel()
-                infoLabel.frame = CGRect(x: self.frame.maxX - 200, y: 840, width: 200, height: 50)
+                infoLabel.frame = CGRect(x: self.frame.maxX - 210, y: 860, width: 200, height: 50)
                 infoLabel.textAlignment = .center
                 infoLabel.backgroundColor = #colorLiteral(red: 0, green: 0.4770143032, blue: 0.9955772758, alpha: 1)
                 infoLabel.layer.cornerRadius = 8.0
@@ -194,7 +196,7 @@ class MapView: UIView {
                 
                 infoLabelRef!.text = idText + " " + (String(nextID))
                 self.subviews[0].isHidden = false
-                sender.backgroundColor = #colorLiteral(red: 0.5765730143, green: 0.8659184575, blue: 0.9998990893, alpha: 1)
+                sender.backgroundColor = #colorLiteral(red: 0.5765730143, green: 0.8659184575, blue: 0.9998990893, alpha: 0.7)
             }
         } else {
             self.subviews[0].isHidden = true

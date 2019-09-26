@@ -229,7 +229,7 @@ class MainViewController: UIViewController {
         
         checkRoomDictionary()
         printAllRooms()
-        
+        loadSavedRooms(self.roomDict)
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -557,7 +557,13 @@ class MainViewController: UIViewController {
     
     private func printAllRooms() {
         for room in self.roomDict.values {
-            print(room)
+            print("\(room)")
+        }
+    }
+    
+    private func loadSavedRooms(_ dict: [Int:Room]) {
+        for room in self.roomDict.values {
+            self.apiController.parseCoordinates(room)
         }
     }
 }
