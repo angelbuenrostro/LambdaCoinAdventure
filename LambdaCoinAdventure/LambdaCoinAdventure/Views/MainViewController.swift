@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, WiseMoveDelegate {
     
     // MARK: - Properties
     var roomDict:[Int:Room] = [:]
@@ -227,6 +227,11 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView.delegate = self
+        
+        let screenCenter = CGPoint(x: self.view.frame.width/2, y: self.view.frame.height/2)
+        mapView.superviewCenter = screenCenter
+        
         setupUI()
         
         checkRoomDictionary()
@@ -378,9 +383,22 @@ class MainViewController: UIViewController {
     }
     
     
-    private func movePlayer(_ direction: String) {
-//        print(direction)
+    func inputIDToTextfield(_ id: String) {
+        if self.predictionTextField.text == "" || self.predictionTextField.text == nil {
+            self.predictionTextField.text = id
+        } else {
+            self.predictionTextField.text?.append(",\(id)")
+        }
+    }
+    
+    func movePlayer(_ direction: String) {
         var prediction: String = ""
+        
+//        if id != nil {
+//            print("button's title ID: \(id)")
+//            self.predictionTextField.text = id
+//        }
+//        print(direction)
         if predictionTextField.text != nil {
             prediction = predictionTextField.text!
             // Resets text field after each move
@@ -567,7 +585,9 @@ class MainViewController: UIViewController {
                 }
             }
 //            print("\(room)")
+            // ADD { "rooms": [
             print("{ \"room_id\": \(room.room_id), \"title\": \"\(room.title)\", \"description\": \"\(room.description)\", \"coordinates\": \"\(room.coordinates)\", \"elevation\": \(room.elevation), \"terrain\": \"\(room.terrain)\", \"players\": \(room.players), \"items\":\(room.items), \"exits\":\(room.exits), \"cooldown\": \(room.cooldown), \"messages\": \(msgArray)},")
+            // END WITH ] }
         }
     }
     
