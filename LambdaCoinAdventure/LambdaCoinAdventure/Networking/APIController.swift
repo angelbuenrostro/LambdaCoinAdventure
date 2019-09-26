@@ -584,6 +584,7 @@ class APIController {
         var isTransmogrifier: Bool = false
         var isMine: Bool = false
         var isElevated: Bool = false
+        var isTrap: Bool = false
         
         // TODO: - Replace if else statements with Switch
         if room.title == "Shop"{
@@ -592,7 +593,7 @@ class APIController {
         } else if room.title == "Name Changer" {
 //            print("room is Name Changer")
             isNameChanger = true
-        } else if room.description.contains("prayer") || room.description.contains("pray") {
+        } else if room.description.contains("prayer") || room.description.contains("pray") || room.title.contains("Shrine") || room.description.contains("shrine"){
 //            print("room is Shrine")
             isShrine = true
         } else if room.title == "Transmogrifier" {
@@ -604,11 +605,17 @@ class APIController {
         } else if room.elevation > 0{
 //            print("room is elevated")
             isElevated = true
+        } else if room.messages.count > 1 {
+            for msg in room.messages {
+                if msg.contains("trap") || msg.contains("trap!:"){
+                    isTrap = true
+                }
+            }
         }
         
         // MapView readable Coordinate
         let coordinate = Coordinates(id: id, x: xValue!, y: yValue!,
-                                     exits: exits, shop: isShop, nameChanger: isNameChanger, shrine: isShrine, transmogrifier: isTransmogrifier, mine: isMine, elevated: isElevated)
+                                     exits: exits, shop: isShop, nameChanger: isNameChanger, shrine: isShrine, transmogrifier: isTransmogrifier, mine: isMine, elevated: isElevated, trap: isTrap)
         
         self.currentCoordinate = coordinate
         self.mapSet.insert(coordinate)

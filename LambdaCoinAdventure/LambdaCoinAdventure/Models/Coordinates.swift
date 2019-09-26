@@ -19,4 +19,5 @@ struct Coordinates: Equatable, Hashable {
     let transmogrifier: Bool
     let mine: Bool
     let elevated: Bool
+    let trap: Bool
 }

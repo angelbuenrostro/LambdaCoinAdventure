@@ -35,7 +35,6 @@ class MapView: UIView {
 //        print("Num in mapSet: \(apiController.mapSet.count)")
         for coordinate in apiController.mapSet {
             
-            print("Inside drawing of Map: \(coordinate)")
             
             let point = convertCoordinates(coordinate: coordinate)
             // Draws an ellipse exactly around the origin point
@@ -77,7 +76,12 @@ class MapView: UIView {
                 roomColor = #colorLiteral(red: 0.1311326623, green: 0.3781063557, blue: 0.6658913493, alpha: 1).cgColor
                 lineWidth += 1
             } else if coordinate.elevated {
-                context.setLineDash(phase: 0, lengths: [1,2])
+                lineWidth = CGFloat(0.8)
+            } else if coordinate.trap {
+                lineWidth = CGFloat(2)
+                context.setFillColor(#colorLiteral(red: 0.6908203363, green: 0.2223847806, blue: 0.2223847806, alpha: 0.8).cgColor)
+                context.fillEllipse(in: pointRect)
+                context.fill(pointRect)
             }
             
             context.setLineWidth(lineWidth)

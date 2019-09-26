@@ -230,6 +230,7 @@ class MainViewController: UIViewController {
         checkRoomDictionary()
         printAllRooms()
         loadSavedRooms(self.roomDict)
+        print(self.roomDict.count)
     }
     
     override var prefersStatusBarHidden: Bool {
