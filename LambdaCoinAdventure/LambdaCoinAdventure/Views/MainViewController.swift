@@ -13,6 +13,8 @@ class MainViewController: UIViewController, WiseMoveDelegate {
     // MARK: - Properties
     var roomDict:[Int:Room] = [:]
     
+    var directionalDict: [Int:[String:Int]]?
+    
     
     let apiController = APIController()
     var currentRoom = Room(room_id: -1,
@@ -392,6 +394,8 @@ class MainViewController: UIViewController, WiseMoveDelegate {
     }
     
     func movePlayer(_ direction: String) {
+        // resets prediction and items label
+        itemsLabel.text = ""
         var prediction: String = ""
         
 //        if id != nil {
@@ -502,6 +506,7 @@ class MainViewController: UIViewController, WiseMoveDelegate {
                 for item in room.items {
                     itemList += ", \(item)"
                 }
+                print("FOUND ITEM !!! \(itemList)")
                 self.itemsLabel.text = String(itemList.dropFirst(2))
             }
             
@@ -542,6 +547,13 @@ class MainViewController: UIViewController, WiseMoveDelegate {
                     self.strengthLabel.text = String(player.strength)
                     self.speedLabel.text = String(player.speed)
                     self.encumbranceLabel.text = String(player.encumbrance)
+                    
+                    var itemList:String = ""
+                    for item in player.inventory{
+                        itemList.append(item)
+                        itemList.append(", ")
+                    }
+                    self.inventoryOutlet.text = String(itemList.dropLast(2))
                 }
             } else {
                 print("No player info?")
@@ -578,16 +590,27 @@ class MainViewController: UIViewController, WiseMoveDelegate {
     
     private func printAllRooms() {
         for room in self.roomDict.values {
-            var msgArray: [String] = []
-            for i in 0...room.messages.count-1 {
-                if !room.messages[i].contains("trap"){
-                    msgArray.append(room.messages[i])
-                }
-            }
-//            print("\(room)")
-            // ADD { "rooms": [
-            print("{ \"room_id\": \(room.room_id), \"title\": \"\(room.title)\", \"description\": \"\(room.description)\", \"coordinates\": \"\(room.coordinates)\", \"elevation\": \(room.elevation), \"terrain\": \"\(room.terrain)\", \"players\": \(room.players), \"items\":\(room.items), \"exits\":\(room.exits), \"cooldown\": \(room.cooldown), \"messages\": \(msgArray)},")
-            // END WITH ] }
+            
+            
+            // Make Directional Graph
+            
+            
+            
+            
+            
+            // PRINT ROOMS AS A JSON COMPATIBLE STRING
+//            var msgArray: [String] = []
+//            for i in 0...room.messages.count-1 {
+//                if !room.messages[i].contains("trap"){
+//                    msgArray.append(room.messages[i])
+//                }
+//            }
+////            print("\(room)")
+//            // ADD { "rooms": [
+//            print("{ \"room_id\": \(room.room_id), \"title\": \"\(room.title)\", \"description\": \"\(room.description)\", \"coordinates\": \"\(room.coordinates)\", \"elevation\": \(room.elevation), \"terrain\": \"\(room.terrain)\", \"players\": \(room.players), \"items\":\(room.items), \"exits\":\(room.exits), \"cooldown\": \(room.cooldown), \"messages\": \(msgArray)},")
+//            // END WITH ] }
+//
+            
         }
     }
     

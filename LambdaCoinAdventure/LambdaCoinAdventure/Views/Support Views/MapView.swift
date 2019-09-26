@@ -13,7 +13,7 @@ class MapView: UIView {
     weak var delegate: WiseMoveDelegate?
     
     var apiController : APIController? = nil
-    let pointSize = CGSize(width: 8, height: 8)
+    let pointSize = CGSize(width: 20 , height: 20)
     
     var infoLabelMade = false
     var infoLabelRef: UILabel?
@@ -62,7 +62,7 @@ class MapView: UIView {
             
             // Draw Room Circle
             var roomColor = UIColor.white.cgColor
-            var lineWidth = CGFloat(2)
+            var lineWidth = CGFloat(3)
             // Different colors denote special rooms
             if coordinate.shop {
                 roomColor = #colorLiteral(red: 0.9993286729, green: 0.7073625326, blue: 0.4233144522, alpha: 1).cgColor
@@ -77,10 +77,11 @@ class MapView: UIView {
                 roomColor = #colorLiteral(red: 0.2899999917, green: 0.9499999881, blue: 0.6299999952, alpha: 1).cgColor
                 lineWidth += 1
             } else if coordinate.transmogrifier {
-                roomColor = #colorLiteral(red: 0.1311326623, green: 0.3781063557, blue: 0.6658913493, alpha: 1).cgColor
+                roomColor = #colorLiteral(red: 0.9700000286, green: 0.5400000215, blue: 0.8799999952, alpha: 1).cgColor
                 lineWidth += 1
             } else if coordinate.elevated {
-                lineWidth = CGFloat(0.8)
+                roomColor = #colorLiteral(red: 0.1366455257, green: 0.2963576317, blue: 0.495860517, alpha: 1).cgColor
+                lineWidth = CGFloat(5)
             } else if coordinate.trap {
                 lineWidth = CGFloat(2)
                 context.setFillColor(#colorLiteral(red: 0.6908203363, green: 0.2223847806, blue: 0.2223847806, alpha: 0.8).cgColor)
@@ -112,26 +113,30 @@ class MapView: UIView {
         let mapCenter = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
 //        let mapCenter = superviewCenter!
         // Offsets coordinate point by arbitrary amount to create spacing between points
-        x *= Int(pointSize.width) + 8
-        y *= Int(-pointSize.height) - 6
+        x *= Int(pointSize.width) + 12
+        y *= Int(-pointSize.height) - 9
         
         return CGPoint(x: mapCenter.x + CGFloat(x), y: mapCenter.y + CGFloat(y))
     }
     
     private func drawHallway(direction: String, context: CGContext, startPoint: CGPoint) {
         context.beginPath()
-        let roomSizeOffset = (pointSize.height/2 + 1.1)
+        
+        context.setStrokeColor(  #colorLiteral(red: 0.9486700296, green: 0.9493899941, blue: 0.9487800002, alpha: 0.7).cgColor)
+        context.setLineWidth(CGFloat(4))
+        
+        let roomSizeOffset = (pointSize.height/2 + 0)
         let centerX = startPoint.x
         let centerY = startPoint.y + pointSize.height
         
         var endPoint = startPoint
         
         if direction == "n" {
-            context.move(to: CGPoint(x: centerX, y: centerY - roomSizeOffset))
+            context.move(to: CGPoint(x: centerX, y: centerY - roomSizeOffset + 1))
             endPoint = CGPoint(x: centerX, y: context.currentPointOfPath.y - roomSizeOffset)
         }
         else if direction == "s" {
-            context.move(to: CGPoint(x: centerX, y: centerY + roomSizeOffset))
+            context.move(to: CGPoint(x: centerX, y: centerY + roomSizeOffset - 1))
             endPoint = CGPoint(x: centerX, y: context.currentPointOfPath.y + roomSizeOffset)
         }
         else if direction == "w" {

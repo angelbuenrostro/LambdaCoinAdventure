@@ -590,13 +590,13 @@ class APIController {
         if room.title == "Shop"{
 //            print("room is Shop")
             isShop = true
-        } else if room.title == "Name Changer" {
+        } else if room.title.contains("Pirate") {
 //            print("room is Name Changer")
             isNameChanger = true
         } else if room.description.contains("prayer") || room.description.contains("pray") || room.title.contains("Shrine") || room.description.contains("shrine"){
 //            print("room is Shrine")
             isShrine = true
-        } else if room.title == "Transmogrifier" {
+        } else if room.description.contains("machine") {
 //            print("room is Transmogrifier")
             isTransmogrifier = true
         } else if room.title == "Mine" {
