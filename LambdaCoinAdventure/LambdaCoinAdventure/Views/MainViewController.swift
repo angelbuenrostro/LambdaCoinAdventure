@@ -354,7 +354,7 @@ class MainViewController: UIViewController, WiseMoveDelegate {
         errorLabel.frame = CGRect(x: mapView.frame.midX - 300, y: self.view.frame.maxY - 69, width: 600, height: 50)
         errorLabel.layer.opacity = 1
         errorLabel.textAlignment = .center
-        errorLabel.backgroundColor = .clear
+        errorLabel.backgroundColor = .lightGray
         errorLabel.layer.cornerRadius = 6.0
         errorLabel.clipsToBounds = true
         
@@ -618,23 +618,9 @@ class MainViewController: UIViewController, WiseMoveDelegate {
     
     private func printAllRooms() {
         
-        // Make directional graph
-        var graphDictionary = [Int: [String:Int]] ()
-        
-        var graphArray : [((String),[String:Int])] = []
-        for i in 0...self.roomDict.count-1 {
-            guard let room = self.roomDict[i] else { fatalError("Missing room in roomDict")}
-            var exitDict = [String: Int] ()
-            for exit in room.exits {
-                // MAKE FUNCTION WHICH RETURNS CORRECT VALUE FOR THE ROOM ID KEY
-//                getExits(roomID: room.room_id)
-                
-                exitDict[exit] = -1
-            }
-            graphDictionary[room.room_id] = exitDict
-//            graphArray.append(exitDict)
-            
-            // PRINT ROOMS AS A JSON COMPATIBLE STRING
+//        for room in self.roomDict {
+//
+//            // PRINT ROOMS AS A JSON COMPATIBLE STRING
 //            var msgArray: [String] = []
 //            for i in 0...room.messages.count-1 {
 //                if !room.messages[i].contains("trap"){
@@ -646,15 +632,10 @@ class MainViewController: UIViewController, WiseMoveDelegate {
 //            print("{ \"room_id\": \(room.room_id), \"title\": \"\(room.title)\", \"description\": \"\(room.description)\", \"coordinates\": \"\(room.coordinates)\", \"elevation\": \(room.elevation), \"terrain\": \"\(room.terrain)\", \"players\": \(room.players), \"items\":\(room.items), \"exits\":\(room.exits), \"cooldown\": \(room.cooldown), \"messages\": \(msgArray)},")
 //            // END WITH ] }
 //
-            
-        }
-        
-        for room in graphArray {
-            print(room)
-        }
-        
+//
+//
+//        }
     }
-    
     private func loadSavedRooms(_ dict: [Int:Room]) {
         for room in self.roomDict.values {
             self.apiController.parseCoordinates(room)

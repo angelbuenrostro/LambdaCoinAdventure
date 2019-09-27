@@ -187,11 +187,9 @@ class MapView: UIView {
             infoButton.setTitleColor(UIColor.clear, for: .normal)
             infoButton.backgroundColor = UIColor.clear
             infoButton.addTarget(self, action: #selector(infoButtonPressed(sender:)), for: .touchUpInside)
-//            infoButton.addTarget(self, action: #selector(wiseMoveButtonPressed(sender:)), for: .touchUpInside)
             // Add button to self.superview.superview to put it on the mainVC
             self.addSubview(infoButton)
             self.addSubview(numLabel)
-//            self.superview?.superview?.addSubview(infoButton)
         }
     }
     
@@ -208,52 +206,7 @@ class MapView: UIView {
     @objc func infoButtonPressed(sender: UIButton!) {
         
         delegate?.inputIDToTextfield(sender.title(for: .normal)!)
-        if sender.title(for: .normal) != nil {
-            print("button has title: \(sender.title(for: .normal))")
-        }
-//        let frameKey = getFrameKey(rect: sender.frame)
-//        if sender.backgroundColor != #colorLiteral(red: 0.5765730143, green: 0.8659184575, blue: 0.9998990893, alpha: 0.7) {
-//
-//            guard let nextID = idDict[frameKey] else { fatalError() }
-            
-//            print(nextID)
-            
-            // Draw UILabel with RoomID info on screen
-            // Bool check prevents duplicaate labels
-//            if infoLabelMade == false {
-//                let infoLabel = UILabel()
-//                infoLabel.frame = CGRect(x: self.frame.maxX - 210, y: 860, width: 200, height: 50)
-//                infoLabel.textAlignment = .center
-//                infoLabel.backgroundColor = #colorLiteral(red: 0, green: 0.4770143032, blue: 0.9955772758, alpha: 1)
-//                infoLabel.layer.cornerRadius = 8.0
-//                infoLabel.textColor = .white
-//                infoLabel.clipsToBounds = true
-//                infoLabel.adjustsFontSizeToFitWidth = true
-//                infoLabel.minimumScaleFactor = 0.5
-//
-//                self.insertSubview(infoLabel, at: 0)
-//                infoLabelMade = true
-//                infoLabel.text = String(nextID)
-//                guard let customFont = UIFont(name: "Gilroy-Bold", size: UIFont.labelFontSize) else {
-//                    fatalError("failed to load custom font")
-//                }
-//                infoLabel.font = customFont
-//                infoLabelRef = infoLabel
-//            } else {
-//                guard var idText = infoLabelRef!.text else { fatalError() }
-//                if idText.count > 18 {
-//                    idText = String(idText.dropFirst(3))
-//                }
-//
-//                infoLabelRef!.text = idText + " " + (String(nextID))
-//                self.subviews[0].isHidden = false
-//                sender.backgroundColor = #colorLiteral(red: 0.5765730143, green: 0.8659184575, blue: 0.9998990893, alpha: 0.7)
-//            }
-//        } else {
-//            self.subviews[0].isHidden = true
-//            infoLabelRef!.text = ""
-//            sender.backgroundColor = nil
-//        }
+
     }
     
     private func getFrameKey(rect: CGRect) -> String {
