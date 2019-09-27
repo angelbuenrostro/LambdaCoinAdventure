@@ -51,13 +51,16 @@ class MapView: UIView {
             // Draws Exit Markers to relevant cardinal direction
             if !coordinate.exits.isEmpty {
                 let exits = coordinate.exits
-                let lineColor = UIColor.white.cgColor
+                let lineColor = UIColor.lightGray.cgColor
+                
                 context.setLineWidth(2)
                 context.setStrokeColor(lineColor)
                 
                 for exit in exits {
+                    context.setBlendMode(.luminosity)
                     drawHallway(direction: exit, context: context, startPoint: point)
                 }
+                context.setBlendMode(.normal)
             }
             
             // Draw Room Circle
@@ -101,6 +104,7 @@ class MapView: UIView {
                 context.fillEllipse(in: pointRect)
             }
                         
+//            context.stroke(pointRect)
             context.strokeEllipse(in: pointRect)
         }
     }
@@ -122,7 +126,7 @@ class MapView: UIView {
     private func drawHallway(direction: String, context: CGContext, startPoint: CGPoint) {
         context.beginPath()
         
-        context.setStrokeColor(  #colorLiteral(red: 0.9486700296, green: 0.9493899941, blue: 0.9487800002, alpha: 0.7).cgColor)
+        context.setStrokeColor(  #colorLiteral(red: 0.8590000272, green: 0.908010006, blue: 0.9488199949, alpha: 1).cgColor)
         context.setLineWidth(CGFloat(4))
         
         let roomSizeOffset = (pointSize.height/2 + 0)
@@ -130,27 +134,30 @@ class MapView: UIView {
         let centerY = startPoint.y + pointSize.height
         
         var endPoint = startPoint
-        
-        if direction == "n" {
-            context.move(to: CGPoint(x: centerX, y: centerY - roomSizeOffset + 1))
-            endPoint = CGPoint(x: centerX, y: context.currentPointOfPath.y - roomSizeOffset)
-        }
-        else if direction == "s" {
-            context.move(to: CGPoint(x: centerX, y: centerY + roomSizeOffset - 1))
-            endPoint = CGPoint(x: centerX, y: context.currentPointOfPath.y + roomSizeOffset)
-        }
-        else if direction == "w" {
-            context.move(to: CGPoint(x:centerX - roomSizeOffset, y: centerY))
-            endPoint = CGPoint(x: context.currentPointOfPath.x - roomSizeOffset, y: centerY)
+        if direction == "s" || direction == "w" {
+            
+            if direction == "r" {
+                //            context.move(to: CGPoint(x: centerX, y: centerY - roomSizeOffset))
+                //            endPoint = CGPoint(x: centerX, y: context.currentPointOfPath.y - roomSizeOffset + 1)
+            }
+            else if direction == "s" {
+                context.move(to: CGPoint(x: centerX, y: centerY + roomSizeOffset))
+                endPoint = CGPoint(x: centerX, y: context.currentPointOfPath.y + (roomSizeOffset - 4) )
+            }
+            else if direction == "w" {
+                context.move(to: CGPoint(x:centerX - roomSizeOffset, y: centerY))
+                endPoint = CGPoint(x: context.currentPointOfPath.x - roomSizeOffset, y: centerY)
+                
+            }
+            else if direction == "e" {
+                context.move(to: CGPoint(x: centerX + roomSizeOffset, y: centerY))
+                endPoint = CGPoint(x: context.currentPointOfPath.x + roomSizeOffset, y: centerY)
+                
+            }
+            context.addLine(to: endPoint)
+            context.drawPath(using: .stroke)
             
         }
-        else if direction == "e" {
-            context.move(to: CGPoint(x: centerX + roomSizeOffset, y: centerY))
-            endPoint = CGPoint(x: context.currentPointOfPath.x + roomSizeOffset, y: centerY)
-            
-        }
-        context.addLine(to: endPoint)
-        context.drawPath(using: .stroke)
     }
     
     func addButton(on pointRect: CGRect, coordinate: Coordinates){
@@ -165,6 +172,16 @@ class MapView: UIView {
         } else {
             //MARK: - TODO
             idDict[frameKey] = coordinate.id
+            let numLabel = UILabel(frame: biggerRect)
+            numLabel.text = String(coordinate.id)
+            numLabel.font = UIFont(name: "Gilroy-Bold", size: 9)
+            numLabel.textAlignment = .center
+            numLabel.textColor = .clear
+            numLabel.backgroundColor = UIColor.clear
+            numLabel.layer.borderColor = UIColor.clear.cgColor
+            numLabel.layer.borderWidth = 2
+            
+            
             let infoButton = UIButton(frame: biggerRect)
             infoButton.setTitle(String(coordinate.id), for: .normal)
             infoButton.setTitleColor(UIColor.clear, for: .normal)
@@ -173,6 +190,7 @@ class MapView: UIView {
 //            infoButton.addTarget(self, action: #selector(wiseMoveButtonPressed(sender:)), for: .touchUpInside)
             // Add button to self.superview.superview to put it on the mainVC
             self.addSubview(infoButton)
+            self.addSubview(numLabel)
 //            self.superview?.superview?.addSubview(infoButton)
         }
     }

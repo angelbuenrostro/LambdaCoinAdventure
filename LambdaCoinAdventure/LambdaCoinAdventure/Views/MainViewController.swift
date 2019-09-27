@@ -137,7 +137,14 @@ class MainViewController: UIViewController, WiseMoveDelegate {
     @IBAction func treasureButtonPressed(_ sender: UIButton) {
         if !isAbilitiesTextfieldEmpty(){
             print("button pressed")
-            
+            guard let itemName = abilitiesTextField.text else { fatalError("No item to pickup")}
+            apiController.treasure(action: "take", treasureName: itemName) { (result) in
+                if let room = try? result.get() {
+                    self.handleAPIResult(room)
+                    // Update itemsLabel text
+                    
+                }
+            }
             
         }
     }
@@ -269,6 +276,20 @@ class MainViewController: UIViewController, WiseMoveDelegate {
         statusBGView.layer.borderColor = #colorLiteral(red: 0.07690999657, green: 0.06580000371, blue: 0.1335700005, alpha: 1)
         inventoryBGView.layer.borderWidth = 1.0
         inventoryBGView.layer.borderColor = #colorLiteral(red: 0.07690999657, green: 0.06580000371, blue: 0.1335700005, alpha: 1)
+        
+        // Style buttons
+        styleButton(button: treasureButton)
+        styleButton(button: sellTreasureButton)
+        styleButton(button: checkBalanceButton)
+        styleButton(button: wearItemButton)
+        styleButton(button: prayButton)
+        styleButton(button: examineButton)
+        styleButton(button: proofButton)
+        styleButton(button: mineButton)
+        styleButton(button: transmogrifyButton)
+        styleButton(button: nameChangeButton)
+        styleButton(button: ghostCourierButton)
+        styleButton(button: receiveFromGhostButton)
         
         // Shadows
         startButton.layer.shadowPath = UIBezierPath(roundedRect: self.startButton.bounds, cornerRadius: self.startButton.layer.cornerRadius).cgPath
@@ -507,6 +528,7 @@ class MainViewController: UIViewController, WiseMoveDelegate {
                     itemList += ", \(item)"
                 }
                 print("FOUND ITEM !!! \(itemList)")
+                self.abilitiesTextField.text = room.items[0]
                 self.itemsLabel.text = String(itemList.dropFirst(2))
             }
             
@@ -588,15 +610,29 @@ class MainViewController: UIViewController, WiseMoveDelegate {
         print("Found saved rooms dictionary")
     }
     
+//    private func getExits(roomID: Int) {
+//        let keyCoordinates = self.roomDict[roomID]?.coordinates
+//        print("Key Coords: \(keyCoordinates)")
+//        self.roomDict.keysForValue(value: roomID)
+//    }
+    
     private func printAllRooms() {
-        for room in self.roomDict.values {
-            
-            
-            // Make Directional Graph
-            
-            
-            
-            
+        
+        // Make directional graph
+        var graphDictionary = [Int: [String:Int]] ()
+        
+        var graphArray : [((String),[String:Int])] = []
+        for i in 0...self.roomDict.count-1 {
+            guard let room = self.roomDict[i] else { fatalError("Missing room in roomDict")}
+            var exitDict = [String: Int] ()
+            for exit in room.exits {
+                // MAKE FUNCTION WHICH RETURNS CORRECT VALUE FOR THE ROOM ID KEY
+//                getExits(roomID: room.room_id)
+                
+                exitDict[exit] = -1
+            }
+            graphDictionary[room.room_id] = exitDict
+//            graphArray.append(exitDict)
             
             // PRINT ROOMS AS A JSON COMPATIBLE STRING
 //            var msgArray: [String] = []
@@ -612,11 +648,31 @@ class MainViewController: UIViewController, WiseMoveDelegate {
 //
             
         }
+        
+        for room in graphArray {
+            print(room)
+        }
+        
     }
     
     private func loadSavedRooms(_ dict: [Int:Room]) {
         for room in self.roomDict.values {
             self.apiController.parseCoordinates(room)
         }
+    }
+    
+    
+    private func styleButton(button: UIButton){
+        button.backgroundColor = UIColor.systemBlue
+        
+        button.layer.borderColor = #colorLiteral(red: 0.5765699744, green: 0.8659200072, blue: 0.9998999834, alpha: 1)
+        button.layer.borderWidth = CGFloat(0.2)
+        // Shadows
+        button.layer.shadowPath = UIBezierPath(roundedRect: button.bounds, cornerRadius: button.layer.cornerRadius).cgPath
+        button.layer.shadowColor = #colorLiteral(red: 0.3600000143, green: 0.7900000215, blue: 0.9599999785, alpha: 1)
+        button.layer.shadowRadius = 7
+        button.layer.shadowOpacity = 0.8
+        button.layer.masksToBounds = false
+        button.layer.cornerRadius = 7
     }
 }

@@ -23,7 +23,7 @@
 
 import Foundation
 
-struct Room: Codable {
+struct Room: Codable, Equatable {
     
     let room_id: Int
     let title: String

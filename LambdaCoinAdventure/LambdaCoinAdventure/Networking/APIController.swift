@@ -29,6 +29,8 @@ enum NetworkError: Error {
 
 class APIController {
     
+    
+    
     // Building a map to feed into the MapView
     var mapSet: Set<Coordinates> = []
 //    var mapCoordinates:[Coordinates] = []
@@ -105,7 +107,7 @@ class APIController {
         }.resume()
     }
     
-    func treasure(action: String, treasureName: String, completion: @escaping (Error?) -> ()) {
+    func treasure(action: String, treasureName: String, completion: @escaping (Result<Room, NetworkError>) -> ()) {
         var request: URLRequest?
         if action == "take"{
             request = URLRequest(url: constants.treasureTakeURL)
@@ -121,21 +123,35 @@ class APIController {
         ]
         treasureRequest.httpBody = try! JSONSerialization.data(withJSONObject: bodyObject, options: [])
         
+        print(treasureRequest)
         // Send Request
-        URLSession.shared.dataTask(with: treasureRequest) { (_, response, error) in
-            if let response = response as? HTTPURLResponse,
-                response.statusCode == 401 {
-                completion(NSError(domain: "", code: response.statusCode, userInfo: nil))
-                return
-            }
-            
-            if let error = error {
-                completion(error)
-                return
-            }
-            completion(nil)
-        }.resume()
-    }
+        URLSession.shared.dataTask(with: treasureRequest) { (data, response, error) in
+                if let response = response as? HTTPURLResponse,
+                    response.statusCode == 401 {
+                    completion(.failure(.badAuth))
+                    return
+                }
+                
+                if let _ = error {
+                    completion(.failure(.otherError))
+                    return
+                }
+                
+                guard let data = data else {
+                    completion(.failure(.badData))
+                    return
+                }
+                
+                let decoder = JSONDecoder()
+                do {
+                    let room = try decoder.decode(Room.self, from: data)
+                    self.parseCoordinates(room)
+                    completion(.success(room))
+                } catch {
+                    completion(.failure(.noDecode))
+                }
+            }.resume()
+        }
     
     func sellTreasure(treasureName: String, confirm: String, completion: @escaping (Result<Room, NetworkError>) -> Void) {
         var request = URLRequest(url: constants.treasureSellURL)
@@ -599,7 +615,7 @@ class APIController {
         } else if room.description.contains("machine") {
 //            print("room is Transmogrifier")
             isTransmogrifier = true
-        } else if room.title == "Mine" {
+        } else if room.room_id == 250 {
 //            print("room is Mine")
             isMine = true
         } else if room.elevation > 0{
