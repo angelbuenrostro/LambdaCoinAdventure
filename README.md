@@ -3,7 +3,7 @@ An iOS application to traverse a maze and mine a blockchain coin
 
 Watch a short video demonstration where I speak about how I built this application here: https://youtu.be/c_ZMKQ8PInw?t=675
 
-![](AnimaxFeatCleanShot 2019-10-09 at 16.45.06.gifureDemo.gif)
+![](CleanShot 2019-10-09 at 16.45.06.gif)
 
 # Application Features
 
